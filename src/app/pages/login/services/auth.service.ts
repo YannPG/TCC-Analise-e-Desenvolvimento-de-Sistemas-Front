@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,13 +9,29 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   private readonly baseUrl = `${environment.apiUrl}/auth`;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
+
   realizarLogin(credenciais: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, credenciais);
   }
 
   registrarUsuario(dadosRegistro: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/registrar`, dadosRegistro);
+  }
+
+  tokenExpirado(): boolean {
+    const token = this.obterToken();
+    if (!token) return true;
+
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const payloadDecodificado = JSON.parse(atob(payloadBase64));
+      
+      const tempoExpiracao = payloadDecodificado.exp * 1000;
+      return Date.now() > tempoExpiracao;
+    } catch (e) {
+      return true; 
+    }
   }
 
   armazenarToken(token: string): void {
@@ -27,13 +42,8 @@ export class AuthService {
     return localStorage.getItem('sifeo_token');
   }
 
-  limparSessao(): void {
-    localStorage.removeItem('sifeo_token');
-  }
-
   deslogar(): void {
     localStorage.removeItem('sifeo_token');
     localStorage.removeItem('sifeo_nome');
-    this.router.navigate(['/login']);
   }
 }
