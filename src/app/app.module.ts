@@ -20,6 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { PainelComponent } from './pages/painel/painel.component';
+import { SidebarComponent } from './pages/painel/components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PainelComponent } from './pages/painel/painel.component';
     LoginComponent,
     HomeComponent,
     RegistrarComponent,
-    PainelComponent
+    PainelComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

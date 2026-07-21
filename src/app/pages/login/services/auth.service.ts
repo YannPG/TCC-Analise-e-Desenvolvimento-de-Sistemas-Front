@@ -1,18 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+
+export interface RespostaLogin {
+  token: string;
+  nome?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly baseUrl = `${environment.apiUrl}/auth`;
+  private readonly TOKEN_KEY = 'sifeo_token';
 
-  constructor(private http: HttpClient) {}
-
-  realizarLogin(credenciais: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, credenciais);
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) {}
+  
+  realizarLogin(credenciais: any): Observable<RespostaLogin> {
+    return this.http.post<RespostaLogin>(`${this.baseUrl}/login`, credenciais).pipe(
+      tap((resposta: RespostaLogin) => {
+        if (resposta && resposta.token) {
+          this.armazenarToken(resposta.token);
+          if (resposta.nome) {
+            localStorage.setItem('sifeo_nome', resposta.nome);
+          }
+        }
+      })
+    );
   }
 
   registrarUsuario(dadosRegistro: any): Observable<any> {
@@ -35,15 +54,18 @@ export class AuthService {
   }
 
   armazenarToken(token: string): void {
-    localStorage.setItem('sifeo_token', token);
+    localStorage.setItem(this.TOKEN_KEY, token); 
   }
 
   obterToken(): string | null {
-    return localStorage.getItem('sifeo_token');
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
+
   deslogar(): void {
-    localStorage.removeItem('sifeo_token');
+    localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem('sifeo_nome');
-  }
+    this.router.navigate(['/login']);
+
+  } 
 }

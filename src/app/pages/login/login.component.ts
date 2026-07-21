@@ -30,9 +30,7 @@ export class LoginComponent {
       const dadosLogin = this.loginForm.value;
 
       this.authService.realizarLogin(dadosLogin).subscribe({
-        next: (resposta) => {
-          localStorage.setItem('sifeo_token', resposta.token); 
-          localStorage.setItem('sifeo_nome', resposta.nome);
+        next: () => {
           this.router.navigate(['/painel']);
         },
         error: (erroHttp) => {
