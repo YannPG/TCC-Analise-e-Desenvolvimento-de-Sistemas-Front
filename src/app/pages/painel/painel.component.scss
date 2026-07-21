@@ -1,0 +1,161 @@
+$bg-dark: #121212;
+$bg-sidebar: #1a1a1a;
+$bg-header: #1a1a1a;
+$green-primary: #557048; 
+$text-muted: #888888;
+$red-logout: #c0392b;
+$border-color: #2a2a2a;
+$bg-sidebar: #1a1a1a;
+
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.sifeo-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: $bg-dark;
+  color: $text-light;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .topbar {
+    height: 70px;
+    background-color: $bg-header;
+    border-bottom: 1px solid $border-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 32px;
+
+    .context-selector {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      .farm-select {
+        background: transparent;
+        color: $text-light;
+        border: 1px solid $border-color;
+        padding: 8px 12px;
+        border-radius: 4px;
+        outline: none;
+
+        option {
+          background-color: $bg-sidebar;
+        }
+      }
+
+      .page-title {
+        color: $text-muted;
+        font-size: 0.9rem;
+      }
+    }
+
+    .user-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .icon-btn {
+        background: transparent;
+        border: none;
+        color: $text-muted;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: $green-primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+      }
+
+      .btn-logout {
+        background-color: $red-logout;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+  .content-area {
+    flex: 1;
+    padding: 32px;
+    overflow-y: auto;
+    background-color: $bg-dark; 
+  }
+
+  .mobile-only { display: none; }
+
+@media (max-width: 768px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: inline-block; }
+
+  .btn-menu-mobile {
+    display: block;
+    margin-right: 12px;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px; 
+    height: 100vh;
+    z-index: 1000; 
+    transition: left 0.3s ease; 
+    box-shadow: 4px 0 10px rgba(0,0,0,0.5);
+
+    &.open {
+      left: 0;
+    }
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999; 
+    backdrop-filter: blur(2px);
+  }
+
+  .main-content .topbar {
+    padding: 0 16px; 
+    
+    .context-selector .farm-select {
+      max-width: 130px;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .btn-menu-mobile {
+    display: none;
+  }
+}
+}

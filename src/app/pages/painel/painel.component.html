@@ -1,1 +1,33 @@
-<p>painel works!</p>
+<div class="sifeo-layout">
+  
+  <app-sidebar></app-sidebar>
+  <main class="main-content">
+    
+    <header class="topbar">
+      <div class="context-selector">
+        <button class="icon-btn btn-menu-mobile" (click)="alternarMenu()">
+          <i class="ph ph-list"></i>
+        </button>
+
+        <select class="farm-select">
+          <option>Fazenda Principal</option>
+        </select>
+        <span class="page-title desktop-only">Dashboard</span>
+      </div>
+
+      <div class="user-controls">
+        <span class="user-name desktop-only">{{ nomeUsuario }}</span>
+        <div class="avatar">{{ iniciaisUsuario }}</div>
+        <button class="btn-logout" (click)="sair()">
+          <span class="desktop-only">Sair</span>
+          <i class="ph ph-sign-out mobile-only"></i>
+        </button>
+      </div>
+    </header>
+
+    <section class="content-area">
+      <router-outlet></router-outlet>
+    </section>
+    
+  </main>
+</div>
