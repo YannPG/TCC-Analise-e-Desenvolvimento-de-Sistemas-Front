@@ -20,7 +20,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { PainelComponent } from './pages/painel/painel.component';
-import { SidebarComponent } from './pages/painel/components/sidebar/sidebar.component';
+import { SidebarComponent } from './core/components/sidebar/sidebar.component';
+import { TopbarComponent } from './core/components/topbar/topbar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SidebarComponent } from './pages/painel/components/sidebar/sidebar.comp
     HomeComponent,
     RegistrarComponent,
     PainelComponent,
-    SidebarComponent
+    SidebarComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,

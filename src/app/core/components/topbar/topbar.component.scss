@@ -1,0 +1,111 @@
+$bg-sidebar: #1a1a1a;
+$bg-header: #1a1a1a;
+$green-primary: #557048; 
+$text-muted: #888888;
+$red-logout: #c0392b;
+$border-color: #2a2a2a;
+$text-light: #f1f1f1;
+
+.desktop-only { display: inline-block; }
+.mobile-only { display: none; } 
+
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: $text-muted;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar {
+  height: 70px;
+  background-color: $bg-header;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+
+  .context-selector {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    .farm-select {
+      background: transparent;
+      color: $text-light;
+      border: 1px solid $border-color;
+      padding: 8px 12px;
+      border-radius: 4px;
+      outline: none;
+
+      option {
+        background-color: $bg-sidebar;
+      }
+    }
+
+    .page-title {
+      color: $text-muted;
+      font-size: 0.9rem;
+    }
+  }
+
+  .user-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: $green-primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .btn-logout {
+      background-color: $red-logout;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: opacity 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .btn-menu-mobile {
+    display: none !important; 
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: inline-block !important; } 
+  
+  .topbar {
+    padding: 0 16px; 
+    
+    .context-selector .farm-select {
+      max-width: 130px;
+      text-overflow: ellipsis;
+    }
+  }
+}

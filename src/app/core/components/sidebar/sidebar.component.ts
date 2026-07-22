@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,6 +6,7 @@ import { Component, HostBinding } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  
   expandido: boolean = true;
 
   @HostBinding('class.recolhido') get isRecolhido() {
@@ -14,5 +15,16 @@ export class SidebarComponent {
 
   alternarTamanho(): void {
     this.expandido = !this.expandido;
+  }
+
+  @Input() menuMobileAberto: boolean = false; 
+  @Output() fecharMenuMobile = new EventEmitter<void>();
+
+  @HostBinding('class.open') get isOpen() {
+    return this.menuMobileAberto;
+  }
+
+  aoClicarNoLink(): void {
+    this.fecharMenuMobile.emit();
   }
 }
