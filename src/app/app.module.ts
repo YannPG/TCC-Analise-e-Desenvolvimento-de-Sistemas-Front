@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor'; 
+import { FormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -22,6 +23,10 @@ import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { PainelComponent } from './pages/painel/painel.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { TopbarComponent } from './core/components/topbar/topbar.component';
+import { PropriedadesComponent } from './pages/propriedades/propriedades.component';
+import { RegistroPropriedadeDialogComponent } from './pages/propriedades/dialogs/registro-propriedade-dialog/registro-propriedade-dialog.component';
+import { DetalhesPropriedadeDialogComponent } from './pages/propriedades/dialogs/detalhes-propriedade-dialog/detalhes-propriedade-dialog.component';
+import { ConfirmarExclusaoDialogComponent } from './pages/propriedades/dialogs/confirmar-exclusao-dialog/confirmar-exclusao-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,11 @@ import { TopbarComponent } from './core/components/topbar/topbar.component';
     RegistrarComponent,
     PainelComponent,
     SidebarComponent,
-    TopbarComponent
+    TopbarComponent,
+    PropriedadesComponent,
+    RegistroPropriedadeDialogComponent,
+    DetalhesPropriedadeDialogComponent,
+    ConfirmarExclusaoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +56,8 @@ import { TopbarComponent } from './core/components/topbar/topbar.component';
     MatSnackBarModule,
     NgxMaskDirective, 
     NgxMaskPipe,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     provideEnvironmentNgxMask(),
