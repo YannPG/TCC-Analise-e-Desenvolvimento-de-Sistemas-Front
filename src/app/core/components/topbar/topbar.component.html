@@ -13,9 +13,27 @@
   <div class="user-controls">
     <span class="user-name desktop-only">{{ nomeUsuario }}</span>
     <div class="avatar">{{ iniciaisUsuario }}</div>
+    
+    <button class="btn-icon" (click)="abrirDialogPerfil()" title="Editar Perfil">
+      <i class="ph ph-user-gear"></i>
+    </button>
+    
     <button class="btn-logout" (click)="sair()">
       <span class="desktop-only">Sair</span>
       <i class="ph ph-sign-out mobile-only"></i>
     </button>
   </div>
 </header>
+
+<!-- Modal renderizado fora do fluxo visual da barra superior -->
+<app-editar-perfil-dialog
+  *ngIf="exibirDialogPerfil"
+  [usuario]="dadosUsuarioAtual"
+  (fechar)="exibirDialogPerfil = false"
+  (salvar)="salvarEdicaoPerfil($event)">
+</app-editar-perfil-dialog>
+
+<div class="sifeo-toast" [ngClass]="toastTipo" *ngIf="toastMsg">
+  <i class="ph" [ngClass]="toastTipo === 'sucesso' ? 'ph-check-circle' : 'ph-warning-circle'"></i>
+  <span>{{ toastMsg }}</span>
+</div>

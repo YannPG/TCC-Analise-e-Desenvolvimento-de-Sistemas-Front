@@ -6,13 +6,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor'; 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- Agrupado para limpeza
 
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms'; 
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
@@ -27,6 +26,7 @@ import { PropriedadesComponent } from './pages/propriedades/propriedades.compone
 import { RegistroPropriedadeDialogComponent } from './pages/propriedades/dialogs/registro-propriedade-dialog/registro-propriedade-dialog.component';
 import { DetalhesPropriedadeDialogComponent } from './pages/propriedades/dialogs/detalhes-propriedade-dialog/detalhes-propriedade-dialog.component';
 import { ConfirmarExclusaoDialogComponent } from './pages/propriedades/dialogs/confirmar-exclusao-dialog/confirmar-exclusao-dialog.component';
+import { EditarPerfilDialogComponent } from './core/components/topbar/dialogs/editar-perfil-dialog/editar-perfil-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { ConfirmarExclusaoDialogComponent } from './pages/propriedades/dialogs/c
     PropriedadesComponent,
     RegistroPropriedadeDialogComponent,
     DetalhesPropriedadeDialogComponent,
-    ConfirmarExclusaoDialogComponent
+    ConfirmarExclusaoDialogComponent,
+    EditarPerfilDialogComponent // <-- Mantido apenas aqui (Correto)
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,6 @@ import { ConfirmarExclusaoDialogComponent } from './pages/propriedades/dialogs/c
     MatSnackBarModule,
     NgxMaskDirective, 
     NgxMaskPipe,
-    HttpClientModule,
     FormsModule
   ],
   providers: [
