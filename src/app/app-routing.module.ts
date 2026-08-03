@@ -6,6 +6,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { PainelComponent } from './pages/painel/painel.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PropriedadesComponent } from './pages/propriedades/propriedades.component'; 
+import { SetoresComponent } from './pages/setores/setores.component'; 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -20,6 +21,10 @@ const routes: Routes = [
       { 
         path: 'propriedades', 
         component: PropriedadesComponent 
+      },
+      {
+        path: 'setores',
+        component: SetoresComponent
       }
     ]
   },

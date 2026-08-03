@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor'; 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- Agrupado para limpeza
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -27,6 +27,9 @@ import { RegistroPropriedadeDialogComponent } from './pages/propriedades/dialogs
 import { DetalhesPropriedadeDialogComponent } from './pages/propriedades/dialogs/detalhes-propriedade-dialog/detalhes-propriedade-dialog.component';
 import { ConfirmarExclusaoDialogComponent } from './pages/propriedades/dialogs/confirmar-exclusao-dialog/confirmar-exclusao-dialog.component';
 import { EditarPerfilDialogComponent } from './core/components/topbar/dialogs/editar-perfil-dialog/editar-perfil-dialog.component';
+import { SetoresComponent } from './pages/setores/setores.component';
+import { CadastrarSetorDialogComponent } from './core/components/dialogs/cadastrar-setor-dialog/cadastrar-setor-dialog.component';
+import { ConfirmDialogComponent } from './core/components/dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { EditarPerfilDialogComponent } from './core/components/topbar/dialogs/ed
     RegistroPropriedadeDialogComponent,
     DetalhesPropriedadeDialogComponent,
     ConfirmarExclusaoDialogComponent,
-    EditarPerfilDialogComponent // <-- Mantido apenas aqui (Correto)
+    EditarPerfilDialogComponent,
+    SetoresComponent,
+    CadastrarSetorDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +66,7 @@ import { EditarPerfilDialogComponent } from './core/components/topbar/dialogs/ed
     FormsModule
   ],
   providers: [
-    provideEnvironmentNgxMask(),
+  provideEnvironmentNgxMask(),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

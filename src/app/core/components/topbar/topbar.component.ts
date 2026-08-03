@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../pages/login/services/auth.service'; 
 import { UsuarioService } from 'src/app/core/services/usuario.service'; 
+import { ContextoService } from 'src/app/core/services/contexto.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-topbar',
@@ -17,32 +20,45 @@ export class TopbarComponent implements OnInit {
   iniciaisUsuario: string = '--';
   toastMsg: string | null = null;
   toastTipo: 'sucesso' | 'erro' = 'sucesso';
+  propriedadesGlobais: any[] = [];
+  propriedadeSelecionadaId: number | null = null; 
 
   constructor(
       private authService: AuthService,
-      private usuarioService: UsuarioService
+      private usuarioService: UsuarioService,
+      private http: HttpClient,
+      private contextoService: ContextoService
   ) {}
 
   ngOnInit(): void {
     this.buscarDadosDoBackend();
+    this.carregarPropriedadesGlobais();
   }
 
+  carregarPropriedadesGlobais(): void {
+    this.http.get<any[]>(environment.apiPropriedades).subscribe({
+      next: (res) => {
+        this.propriedadesGlobais = res;
+      },
+      error: (err) => console.error('Erro ao carregar propriedades na Topbar:', err)
+    });
+  }
+
+  aoTrocarContexto(evento: any): void {
+    this.contextoService.mudarPropriedade(this.propriedadeSelecionadaId);
+  }
+  
   mostrarToast(mensagem: string, tipo: 'sucesso' | 'erro' = 'sucesso'): void {
     this.toastMsg = mensagem;
     this.toastTipo = tipo;
-    
-    setTimeout(() => {
-      this.toastMsg = null;
-    }, 4000);
+    setTimeout(() => { this.toastMsg = null; }, 4000);
   }
 
   buscarDadosDoBackend(): void {
     this.usuarioService.obterPerfilAtual().subscribe({
       next: (perfilDTO) => {
         this.nomeUsuario = perfilDTO.nomeCompleto || perfilDTO.nomeUsuario || perfilDTO.nome || 'Usuário SIFEO'; 
-        
         this.gerarIniciais();
-        
         this.dadosUsuarioAtual = {
           id: perfilDTO.id,
           nomeCompleto: perfilDTO.nomeCompleto || perfilDTO.nome,
@@ -69,17 +85,9 @@ export class TopbarComponent implements OnInit {
     }
   }
 
-  alternarMenu(): void {
-    this.alternarMenuMobile.emit();
-  }
-
-  sair(): void {
-    this.authService.deslogar();
-  }
-
-  abrirDialogPerfil(): void {
-    this.exibirDialogPerfil = true;
-  }
+  alternarMenu(): void { this.alternarMenuMobile.emit(); }
+  sair(): void { this.authService.deslogar(); }
+  abrirDialogPerfil(): void { this.exibirDialogPerfil = true; }
 
   salvarEdicaoPerfil(dadosAtualizados: any): void {
     const alterouCredenciais = 
@@ -90,12 +98,9 @@ export class TopbarComponent implements OnInit {
     this.usuarioService.atualizarPerfil(dadosAtualizados).subscribe({
       next: () => {
         this.exibirDialogPerfil = false;
-
         if (alterouCredenciais) {
           this.mostrarToast('Credenciais alteradas. Faça login novamente.', 'sucesso');
-          setTimeout(() => {
-            this.sair(); 
-          }, 3000);
+          setTimeout(() => { this.sair(); }, 3000);
         } else {
           this.mostrarToast('Perfil atualizado com sucesso!', 'sucesso');
           this.buscarDadosDoBackend(); 

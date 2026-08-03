@@ -4,10 +4,15 @@
       <i class="ph ph-list"></i>
     </button>
 
-    <select class="farm-select">
-      <option>Fazenda Principal</option>
-    </select>
-    <span class="page-title desktop-only">Dashboard</span>
+    <div class="context-selector">
+      <i class="ph ph-map-pin"></i>
+      <select [(ngModel)]="propriedadeSelecionadaId" (change)="aoTrocarContexto($event)">
+        <option [value]="null">Todas as Propriedades</option>
+        <option *ngFor="let prop of propriedadesGlobais" [value]="prop.id">
+          {{ prop.nome }}
+        </option>
+      </select>
+    </div>
   </div>
 
   <div class="user-controls">
@@ -25,7 +30,6 @@
   </div>
 </header>
 
-<!-- Modal renderizado fora do fluxo visual da barra superior -->
 <app-editar-perfil-dialog
   *ngIf="exibirDialogPerfil"
   [usuario]="dadosUsuarioAtual"
