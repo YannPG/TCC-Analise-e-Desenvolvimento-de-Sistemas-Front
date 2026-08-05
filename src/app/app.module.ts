@@ -30,6 +30,8 @@ import { EditarPerfilDialogComponent } from './core/components/topbar/dialogs/ed
 import { SetoresComponent } from './pages/setores/setores.component';
 import { CadastrarSetorDialogComponent } from './core/components/dialogs/cadastrar-setor-dialog/cadastrar-setor-dialog.component';
 import { ConfirmDialogComponent } from './core/components/dialogs/confirm-dialog/confirm-dialog.component';
+import { EquipamentosComponent } from './pages/equipamentos/equipamentos.component';
+import { CadastrarEquipamentoDialogComponent } from './core/components/dialogs/cadastrar-equipamento-dialog/cadastrar-equipamento-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { ConfirmDialogComponent } from './core/components/dialogs/confirm-dialog
     EditarPerfilDialogComponent,
     SetoresComponent,
     CadastrarSetorDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    EquipamentosComponent,
+    CadastrarEquipamentoDialogComponent
   ],
   imports: [
     BrowserModule,

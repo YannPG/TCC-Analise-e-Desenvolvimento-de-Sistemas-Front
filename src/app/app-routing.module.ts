@@ -7,12 +7,12 @@ import { PainelComponent } from './pages/painel/painel.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PropriedadesComponent } from './pages/propriedades/propriedades.component'; 
 import { SetoresComponent } from './pages/setores/setores.component'; 
+import { EquipamentosComponent } from './pages/equipamentos/equipamentos.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registrar', component: RegistrarComponent },
-  
   { 
     path: 'painel', 
     component: PainelComponent, 
@@ -25,7 +25,11 @@ const routes: Routes = [
       {
         path: 'setores',
         component: SetoresComponent
-      }
+      },
+      { 
+        path: 'equipamentos', 
+        component: EquipamentosComponent 
+      },
     ]
   },
   
