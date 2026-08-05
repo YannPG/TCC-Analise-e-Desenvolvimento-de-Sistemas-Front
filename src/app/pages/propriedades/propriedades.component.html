@@ -16,7 +16,7 @@
             <th>CEP</th>
             <th>Município</th>
             <th>UF</th>
-            <th>Ações</th>
+            <th class="text-center">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +40,8 @@
         </tbody>
       </table>
     </div>
+  </div>
+</div>
 
     <app-registro-propriedade-dialog 
       *ngIf="exibirDialogRegistro" 
@@ -60,6 +62,3 @@
       (fechar)="exibirDialogExclusao = false"
       (confirmar)="executarExclusao()">
     </app-confirmar-exclusao-dialog>
-
-  </div>
-</div>
