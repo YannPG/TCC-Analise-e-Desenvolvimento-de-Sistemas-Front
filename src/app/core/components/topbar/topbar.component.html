@@ -1,18 +1,17 @@
 <header class="topbar">
-  <div class="context-selector">
-    <button class="icon-btn btn-menu-mobile" (click)="alternarMenu()">
-      <i class="ph ph-list"></i>
-    </button>
+  
+  <button class="icon-btn btn-menu-mobile" (click)="alternarMenu()">
+    <i class="ph ph-list"></i>
+  </button>
 
-    <div class="context-selector">
-      <i class="ph ph-map-pin"></i>
-      <select [(ngModel)]="propriedadeSelecionadaId" (change)="aoTrocarContexto($event)">
-        <option [value]="null">Todas as Propriedades</option>
-        <option *ngFor="let prop of propriedadesGlobais" [value]="prop.id">
-          {{ prop.nome }}
-        </option>
-      </select>
-    </div>
+  <div class="context-selector">
+    <i class="ph ph-map-pin"></i>
+    <select class="farm-select" [(ngModel)]="propriedadeSelecionadaId" (change)="aoTrocarContexto($event)">
+      <option [value]="null">Todas as Propriedades</option>
+      <option *ngFor="let prop of propriedadesGlobais" [value]="prop.id">
+        {{ prop.nome }}
+      </option>
+    </select>
   </div>
 
   <div class="user-controls">
@@ -23,7 +22,7 @@
       <i class="ph ph-user-gear"></i>
     </button>
     
-    <button class="btn-logout" (click)="sair()">
+    <button class="btn-logout" (click)="sair()" title="Sair do Sistema">
       <span class="desktop-only">Sair</span>
       <i class="ph ph-sign-out mobile-only"></i>
     </button>
