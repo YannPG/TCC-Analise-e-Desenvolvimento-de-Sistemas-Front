@@ -15,4 +15,8 @@ export class ContextoService {
     const valorFinal = id === 'null' as any ? null : Number(id);
     this.propriedadeSelecionadaSource.next(valorFinal);
   }
+
+  getPropriedadeAtual(): number | null {
+    return this.propriedadeSelecionadaSource.getValue();
+  }
 }

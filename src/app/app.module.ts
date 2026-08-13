@@ -32,6 +32,8 @@ import { CadastrarSetorDialogComponent } from './core/components/dialogs/cadastr
 import { ConfirmDialogComponent } from './core/components/dialogs/confirm-dialog/confirm-dialog.component';
 import { EquipamentosComponent } from './pages/equipamentos/equipamentos.component';
 import { CadastrarEquipamentoDialogComponent } from './core/components/dialogs/cadastrar-equipamento-dialog/cadastrar-equipamento-dialog.component';
+import { AtividadesComponent } from './pages/atividades/atividades.component';
+import { RegistrarAtividadeDialogComponent } from './core/components/dialogs/registrar-atividade-dialog/registrar-atividade-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { CadastrarEquipamentoDialogComponent } from './core/components/dialogs/c
     CadastrarSetorDialogComponent,
     ConfirmDialogComponent,
     EquipamentosComponent,
-    CadastrarEquipamentoDialogComponent
+    CadastrarEquipamentoDialogComponent,
+    AtividadesComponent,
+    RegistrarAtividadeDialogComponent
   ],
   imports: [
     BrowserModule,

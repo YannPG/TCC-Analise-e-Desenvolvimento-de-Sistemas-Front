@@ -1,0 +1,90 @@
+<div class="page-container">
+  
+  <header class="page-header">
+    <h1 class="page-title">Atividades</h1>
+    <button class="btn-primary" (click)="abrirModal()">
+      + Registrar Atividade
+    </button>
+  </header>
+
+  <div class="content-card">
+    <div class="filters-group">
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Buscar atividade..." 
+        [(ngModel)]="termoBusca">
+        
+      <select class="filter-select" [(ngModel)]="filtroTipo">
+        <option value="ALL">Todos os Tipos</option>
+        <option value="ADUBACAO">Adubação</option>
+        <option value="IRRIGACAO">Irrigação</option>
+        <option value="PULVERIZACAO">Pulverização</option>
+        <option value="PLANTIO">Plantio</option>
+      </select>
+
+      <select class="filter-select" [(ngModel)]="filtroSetor">
+        <option value="ALL">Todos os Setores</option>
+        <option *ngFor="let setor of listaSetores" [value]="setor.id">
+          {{ setor.nome }}
+        </option>
+      </select>
+    </div>
+
+    <div class="table-responsive">
+      <table class="sifeo-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Tipo de Atividade</th>
+            <th>Setor</th>
+            <th>Responsável</th>
+            <th>Equipamento</th>
+            <th>Status</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr *ngFor="let atv of atividades">
+            <td data-label="Data">{{ atv.data | date:'dd/MM/yyyy' }}</td>
+            <td data-label="Tipo de Atividade">{{ atv.tipo }}</td>
+            <td data-label="Setor">{{ atv.setorNome }}</td>
+            <td data-label="Responsável">{{ atv.responsavelNome }}</td>
+            <td data-label="Equipamento">{{ atv.equipamentoNome || '-' }}</td>
+            <td data-label="Status">
+              <span class="status-badge" [ngClass]="atv.status | lowercase">
+                {{ atv.status }}
+              </span>
+            </td>
+            <td data-label="Ações">
+              <div class="action-buttons">
+                  <button class="btn-icon edit" (click)="abrirModalEdicao(atv)" title="Editar Atividade">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+              
+                  <button class="btn-icon delete" (click)="deletarAtividade(atv.id)" title="Excluir Atividade">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-registrar-atividade-dialog
+  *ngIf="mostrarModal"
+  [atividadeParaEditar]="atividadeSelecionada"
+  (fechar)="fecharModal()"
+  (salvo)="carregarAtividades()">
+</app-registrar-atividade-dialog>
+
+<app-confirm-dialog
+  *ngIf="idAtividadeExcluir !== null"
+  titulo="Excluir Atividade"
+  mensagem="Tem certeza que deseja excluir este registro de atividade?"
+  (resposta)="aoConfirmarExclusao($event)">
+</app-confirm-dialog>
