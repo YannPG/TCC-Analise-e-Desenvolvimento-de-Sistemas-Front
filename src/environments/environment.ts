@@ -8,4 +8,5 @@ export const environment = {
   apiTiposAtividade: 'http://localhost:8080/api/tipos-atividade',
   apiFuncionarios: 'http://localhost:8080/api/funcionarios',
   apiInsumos: 'http://localhost:8080/api/insumos',
+  apiClima: 'http://localhost:8080/api/clima',
 };

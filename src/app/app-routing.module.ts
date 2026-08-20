@@ -11,6 +11,7 @@ import { EquipamentosComponent } from './pages/equipamentos/equipamentos.compone
 import { AtividadesComponent } from './pages/atividades/atividades.component';
 import { FuncionariosComponent } from './pages/funcionarios/funcionarios.component';
 import { InsumosComponent } from './pages/insumos/insumos.component';
+import { ClimaComponent } from './pages/clima/clima.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -44,7 +45,11 @@ const routes: Routes = [
       { 
         path: 'insumos', 
         component: InsumosComponent 
-      }
+      },
+      { 
+        path: 'clima', 
+        component: ClimaComponent 
+      },
     ]
   },
   
