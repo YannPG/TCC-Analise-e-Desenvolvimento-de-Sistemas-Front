@@ -6,5 +6,6 @@ export const environment = {
   apiEquipamentos: 'http://localhost:8080/api/equipamentos',
   apiAtividades: 'http://localhost:8080/api/atividades',
   apiTiposAtividade: 'http://localhost:8080/api/tipos-atividade',
-  apiFuncionarios: 'http://localhost:8080/api/funcionarios'
+  apiFuncionarios: 'http://localhost:8080/api/funcionarios',
+  apiInsumos: 'http://localhost:8080/api/insumos',
 };

@@ -36,6 +36,10 @@ import { AtividadesComponent } from './pages/atividades/atividades.component';
 import { RegistrarAtividadeDialogComponent } from './core/components/dialogs/registrar-atividade-dialog/registrar-atividade-dialog.component';
 import { FuncionariosComponent } from './pages/funcionarios/funcionarios.component';
 import { RegistrarFuncionarioDialogComponent } from './pages/funcionarios/registrar-funcionario-dialog/registrar-funcionario-dialog.component';
+import { InsumosComponent } from './pages/insumos/insumos.component';
+import { RegistrarInsumoDialogComponent } from './pages/insumos/registrar-insumo-dialog/registrar-insumo-dialog.component';
+import { ClimaComponent } from './pages/clima/clima.component';
+import { RegistrarClimaDialogComponent } from './pages/clima/registrar-clima-dialog/registrar-clima-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { RegistrarFuncionarioDialogComponent } from './pages/funcionarios/regist
     AtividadesComponent,
     RegistrarAtividadeDialogComponent,
     FuncionariosComponent,
-    RegistrarFuncionarioDialogComponent
+    RegistrarFuncionarioDialogComponent,
+    InsumosComponent,
+    RegistrarInsumoDialogComponent,
+    ClimaComponent,
+    RegistrarClimaDialogComponent
   ],
   imports: [
     BrowserModule,
