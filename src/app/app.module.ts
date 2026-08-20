@@ -34,6 +34,8 @@ import { EquipamentosComponent } from './pages/equipamentos/equipamentos.compone
 import { CadastrarEquipamentoDialogComponent } from './core/components/dialogs/cadastrar-equipamento-dialog/cadastrar-equipamento-dialog.component';
 import { AtividadesComponent } from './pages/atividades/atividades.component';
 import { RegistrarAtividadeDialogComponent } from './core/components/dialogs/registrar-atividade-dialog/registrar-atividade-dialog.component';
+import { FuncionariosComponent } from './pages/funcionarios/funcionarios.component';
+import { RegistrarFuncionarioDialogComponent } from './pages/funcionarios/registrar-funcionario-dialog/registrar-funcionario-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { RegistrarAtividadeDialogComponent } from './core/components/dialogs/reg
     EquipamentosComponent,
     CadastrarEquipamentoDialogComponent,
     AtividadesComponent,
-    RegistrarAtividadeDialogComponent
+    RegistrarAtividadeDialogComponent,
+    FuncionariosComponent,
+    RegistrarFuncionarioDialogComponent
   ],
   imports: [
     BrowserModule,

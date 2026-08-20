@@ -9,6 +9,7 @@ import { PropriedadesComponent } from './pages/propriedades/propriedades.compone
 import { SetoresComponent } from './pages/setores/setores.component'; 
 import { EquipamentosComponent } from './pages/equipamentos/equipamentos.component';
 import { AtividadesComponent } from './pages/atividades/atividades.component';
+import { FuncionariosComponent } from './pages/funcionarios/funcionarios.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -34,6 +35,10 @@ const routes: Routes = [
       { 
         path: 'atividades', 
         component: AtividadesComponent 
+      },
+      { 
+        path: 'funcionarios', 
+        component: FuncionariosComponent
       },
     ]
   },
