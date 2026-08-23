@@ -32,13 +32,20 @@
       <div class="form-row">
         <div class="form-group">
           <label>Tipo de Atividade *</label>
-          <select [(ngModel)]="dadosAtividade.tipoAtividadeId">
-            <option [ngValue]="null">Selecione...</option>
-            <option *ngFor="let tipo of tiposAtividade" [ngValue]="tipo.id">
-              {{ tipo.nome }}
-            </option>
-          </select>
+          <div style="display: flex; gap: 8px;">
+            <select [(ngModel)]="dadosAtividade.tipoAtividadeId" style="flex: 1;">
+              <option [ngValue]="null">Selecione...</option>
+              <option *ngFor="let tipo of tiposAtividade" [ngValue]="tipo.id">
+                {{ tipo.nome }}
+              </option>
+            </select>
+            
+            <button type="button" class="btn-primary" (click)="abrirModalNovoTipo()" title="Adicionar Novo Tipo" style="padding: 0 14px;">
+              <i class="ph ph-plus"></i>
+            </button>
+          </div>
         </div>
+
         <div class="form-group">
           <label>Setor *</label>
           <select [(ngModel)]="dadosAtividade.setorId">
@@ -60,9 +67,11 @@
             </option>
           </select>
         </div>
+        
         <div class="form-group">
-          <label>Equipamentos (Segure CTRL para vários)</label>
-          <select multiple [(ngModel)]="dadosAtividade.equipamentosIds" class="select-multiple">
+          <label>Equipamento Utilizado</label>
+          <select [(ngModel)]="dadosAtividade.equipamentoId">
+            <option [ngValue]="null">Nenhum equipamento</option>
             <option *ngFor="let eqp of equipamentos" [ngValue]="eqp.id">
               {{ eqp.nome }} ({{ eqp.marcaModelo || 'Sem marca' }})
             </option>
@@ -85,3 +94,9 @@
 
   </div>
 </div>
+
+<app-registrar-tipo-dialog
+  *ngIf="mostrarModalTipo"
+  (fechar)="mostrarModalTipo = false"
+  (salvo)="onTipoCriado($event)">
+</app-registrar-tipo-dialog>

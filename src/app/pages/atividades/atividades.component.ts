@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ContextoService } from '../../core/services/contexto.service';
 import { AtividadeService } from '../../core/services/atividade.service';
+import { TipoAtividadeService } from '../../core/services/tipo-atividade.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -18,19 +19,21 @@ export class AtividadesComponent implements OnInit, OnDestroy {
   idAtividadeExcluir: number | null = null;
 
   termoBusca: string = '';
-  filtroTipo: string = 'ALL';
+  filtroTipo: string | number = 'ALL';
   filtroSetor: string | number = 'ALL';
 
   idSitioAtual: number | null = null;
   private contextoSub!: Subscription;
 
   listaSetores: any[] = [];
+  listaTipos: any[] = [];
   atividadesOriginais: any[] = [];
   atividades: any[] = [];
 
   constructor(
     private contextoService: ContextoService,
     private atividadeService: AtividadeService,
+    private tipoAtividadeService: TipoAtividadeService,
     private http: HttpClient
   ) {}
 
@@ -38,6 +41,7 @@ export class AtividadesComponent implements OnInit, OnDestroy {
     this.contextoSub = this.contextoService.propriedadeAtual$.subscribe(id => {
       this.idSitioAtual = id;
       this.carregarSetoresDoFiltro();
+      this.carregarTiposDoFiltro();
       this.carregarAtividades();
     });
   }
@@ -48,9 +52,26 @@ export class AtividadesComponent implements OnInit, OnDestroy {
     }
   }
 
+  formatarStatus(status: string): string {
+    switch (status) {
+      case 'AGENDADA': return 'Agendada';
+      case 'EM_ANDAMENTO': return 'Em Andamento';
+      case 'CONCLUIDA': return 'Concluída';
+      case 'CANCELADA': return 'Cancelada';
+      default: return status;
+    }
+  }
+
+  carregarTiposDoFiltro(): void {
+    if (!this.idSitioAtual) return;
+    this.tipoAtividadeService.listarPorSitio(this.idSitioAtual).subscribe({
+      next: (res) => this.listaTipos = res,
+      error: (err) => console.error('Erro ao carregar tipos de atividade:', err)
+    });
+  }
+
   carregarSetoresDoFiltro(): void {
     if (!this.idSitioAtual) return;
-
     const urlSetores = environment.apiUrl.endsWith('/api') 
       ? `${environment.apiUrl}/setores` 
       : `${environment.apiUrl}/api/setores`;
@@ -65,7 +86,6 @@ export class AtividadesComponent implements OnInit, OnDestroy {
 
   carregarAtividades(): void {
     this.carregando = true;
-
     this.atividadeService.listarTodos(this.idSitioAtual || undefined).subscribe({
       next: (dados) => {
         this.atividadesOriginais = dados;
@@ -87,17 +107,16 @@ export class AtividadesComponent implements OnInit, OnDestroy {
       filtradas = filtradas.filter(atv =>
         atv.descricao?.toLowerCase().includes(termo) ||
         atv.tipoAtividadeNome?.toLowerCase().includes(termo) ||
-        atv.responsavelNome?.toLowerCase().includes(termo) ||
-        atv.equipamentosNomes?.toLowerCase().includes(termo)
+        atv.responsavelNome?.toLowerCase().includes(termo)
       );
     }
 
     if (this.filtroTipo !== 'ALL') {
-      filtradas = filtradas.filter(atv => atv.tipoAtividadeNome === this.filtroTipo);
+      filtradas = filtradas.filter(atv => atv.tipoAtividadeId === Number(this.filtroTipo));
     }
 
     if (this.filtroSetor !== 'ALL') {
-      filtradas = filtradas.filter(atv => atv.setorNome === this.filtroSetor);
+      filtradas = filtradas.filter(atv => atv.setorId === Number(this.filtroSetor));
     }
 
     this.atividades = filtradas;

@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface AtividadeRequest {
+  sitioId: number; 
   setorId: number;
   tipoAtividadeId: number;
   responsavelId: number;
-  equipamentosIds: number[];
+  equipamentoId: number | null; 
   dataAtividade: string;
   status: string;
   descricao: string;

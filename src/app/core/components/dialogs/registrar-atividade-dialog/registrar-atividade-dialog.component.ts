@@ -18,6 +18,9 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
   isEdicao: boolean = false;
   carregando: boolean = false;
   erroValidacao: string | null = null;
+  mostrarModalTipo: boolean = false;
+
+  idSitioAtual: number | null = null; 
 
   setores: any[] = [];
   tiposAtividade: any[] = [];
@@ -28,7 +31,7 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
     setorId: null,
     tipoAtividadeId: null,
     responsavelId: null,
-    equipamentosIds: [],
+    equipamentoId: null,
     dataAtividade: '',
     status: 'AGENDADA',
     descricao: ''
@@ -41,26 +44,25 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.idSitioAtual = this.contextoService.getPropriedadeAtual();
     this.carregarFiltros();
 
     if (this.atividadeParaEditar) {
       this.isEdicao = true;
       this.dadosAtividade = {
-        setorId: this.atividadeParaEditar.setorId, 
-        tipoAtividadeId: this.atividadeParaEditar.tipoAtividadeId,
-        responsavelId: this.atividadeParaEditar.responsavelId,
-        equipamentosIds: this.atividadeParaEditar.equipamentosIds || [],
-        dataAtividade: this.atividadeParaEditar.dataAtividade,
-        status: this.atividadeParaEditar.status,
-        descricao: this.atividadeParaEditar.descricao
+        setorId: this.atividadeParaEditar.setorId || this.atividadeParaEditar.setor?.id || null, 
+        tipoAtividadeId: this.atividadeParaEditar.tipoAtividadeId || this.atividadeParaEditar.tipoAtividade?.id || null,
+        responsavelId: this.atividadeParaEditar.responsavelId || this.atividadeParaEditar.responsavel?.id || null,
+        equipamentoId: this.atividadeParaEditar.equipamentoId || this.atividadeParaEditar.equipamento?.id || null,
+        dataAtividade: this.atividadeParaEditar.dataAtividade ? this.atividadeParaEditar.dataAtividade.substring(0, 16) : '', // Formata para o input datetime-local
+        status: this.atividadeParaEditar.status || 'AGENDADA',
+        descricao: this.atividadeParaEditar.descricao || ''
       };
     }
   }
 
   carregarFiltros(): void {
-    const idSitioAtual = this.contextoService.getPropriedadeAtual();
-
-    if (!idSitioAtual) {
+    if (!this.idSitioAtual) {
       console.warn('Alerta Arquitetural: Nenhuma propriedade está selecionada na Topbar.');
       return; 
     }
@@ -69,50 +71,55 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
       ? `${environment.apiUrl}/setores` 
       : `${environment.apiUrl}/api/setores`;
 
-    this.http.get<any[]>(urlSetores, {
-      params: { sitioId: idSitioAtual.toString() }
-    }).subscribe({
-      next: (res) => this.setores = res,
-      error: (err) => console.error('Erro na rota de Setores:', err)
-    });
+    this.http.get<any[]>(urlSetores, { params: { sitioId: this.idSitioAtual.toString() } })
+      .subscribe({ next: (res) => this.setores = res });
     
-    this.http.get<any[]>(environment.apiTiposAtividade).subscribe({
-      next: (res) => this.tiposAtividade = res,
-      error: (err) => console.error('Erro na rota de Tipos de Atividade:', err)
-    });
+    this.http.get<any[]>(environment.apiTiposAtividade, { params: { sitioId: this.idSitioAtual.toString() } })
+      .subscribe({ next: (res) => this.tiposAtividade = res });
     
-    this.http.get<any[]>(environment.apiFuncionarios).subscribe({
-      next: (res) => this.funcionarios = res,
-      error: (err) => console.error('Erro na rota de Funcionários:', err)
-    });
+    this.http.get<any[]>(environment.apiFuncionarios)
+      .subscribe({ next: (res) => this.funcionarios = res });
     
-    this.http.get<any[]>(environment.apiEquipamentos, {
-      params: { sitioId: idSitioAtual.toString() }
-    }).subscribe({
-      next: (res) => this.equipamentos = res,
-      error: (err) => console.error('Erro na rota de Equipamentos:', err)
-    });
+    this.http.get<any[]>(environment.apiEquipamentos, { params: { sitioId: this.idSitioAtual.toString() } })
+      .subscribe({ next: (res) => this.equipamentos = res });
   }
 
-  cancelar(): void {
-    this.fechar.emit();
-  }
+  cancelar(): void { this.fechar.emit(); }
 
   confirmar(): void {
     this.erroValidacao = null;
 
-    if (!this.dadosAtividade.setorId || !this.dadosAtividade.tipoAtividadeId || 
-        !this.dadosAtividade.responsavelId || !this.dadosAtividade.dataAtividade || 
-        !this.dadosAtividade.descricao) {
-      this.erroValidacao = 'Preencha todos os campos obrigatórios (*).';
+    if (!this.dadosAtividade.dataAtividade) {
+      this.erroValidacao = 'Falha: O campo "Data e Hora" não foi capturado.';
+      return;
+    }
+    if (!this.dadosAtividade.status) {
+      this.erroValidacao = 'Falha: O campo "Status" não foi capturado.';
+      return;
+    }
+    if (!this.dadosAtividade.tipoAtividadeId) {
+      this.erroValidacao = 'Falha: O "Tipo de Atividade" não foi capturado.';
+      return;
+    }
+    if (!this.dadosAtividade.setorId) {
+      this.erroValidacao = 'Falha: O "Setor" não foi capturado.';
+      return;
+    }
+    if (!this.dadosAtividade.responsavelId) {
+      this.erroValidacao = 'Falha: O "Responsável" não foi capturado.';
+      return;
+    }
+    if (!this.dadosAtividade.descricao || this.dadosAtividade.descricao.trim() === '') {
+      this.erroValidacao = 'Falha: A "Descrição" está vazia ou não foi capturada.';
       return;
     }
 
     const payload: AtividadeRequest = {
+      sitioId: this.idSitioAtual!, 
       setorId: Number(this.dadosAtividade.setorId),
       tipoAtividadeId: Number(this.dadosAtividade.tipoAtividadeId),
       responsavelId: Number(this.dadosAtividade.responsavelId),
-      equipamentosIds: this.dadosAtividade.equipamentosIds.map(Number),
+      equipamentoId: this.dadosAtividade.equipamentoId ? Number(this.dadosAtividade.equipamentoId) : null,
       dataAtividade: this.dadosAtividade.dataAtividade,
       status: this.dadosAtividade.status,
       descricao: this.dadosAtividade.descricao
@@ -144,4 +151,13 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
     console.error(erro);
     this.erroValidacao = 'Erro ao processar a requisição. Verifique os dados.';
   }
+
+  abrirModalNovoTipo(): void {
+    this.mostrarModalTipo = true;
+  }
+
+  onTipoCriado(novoTipo: any): void {
+    this.tiposAtividade.push(novoTipo); 
+    this.dadosAtividade.tipoAtividadeId = novoTipo.id; 
+  } 
 }

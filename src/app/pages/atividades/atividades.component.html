@@ -13,17 +13,17 @@
         type="text" 
         class="search-input" 
         placeholder="Buscar atividade..." 
-        [(ngModel)]="termoBusca">
+        [(ngModel)]="termoBusca"
+        (ngModelChange)="aplicarFiltros()">
         
-      <select class="filter-select" [(ngModel)]="filtroTipo">
+      <select class="filter-select" [(ngModel)]="filtroTipo" (ngModelChange)="aplicarFiltros()">
         <option value="ALL">Todos os Tipos</option>
-        <option value="ADUBACAO">Adubação</option>
-        <option value="IRRIGACAO">Irrigação</option>
-        <option value="PULVERIZACAO">Pulverização</option>
-        <option value="PLANTIO">Plantio</option>
+        <option *ngFor="let tipo of listaTipos" [value]="tipo.id">
+          {{ tipo.nome }}
+        </option>
       </select>
 
-      <select class="filter-select" [(ngModel)]="filtroSetor">
+      <select class="filter-select" [(ngModel)]="filtroSetor" (ngModelChange)="aplicarFiltros()">
         <option value="ALL">Todos os Setores</option>
         <option *ngFor="let setor of listaSetores" [value]="setor.id">
           {{ setor.nome }}
@@ -35,8 +35,9 @@
       <table class="sifeo-table">
         <thead>
           <tr>
-            <th>Data</th>
+            <th>Data e Hora</th>
             <th>Tipo de Atividade</th>
+            <th>Descrição</th>
             <th>Setor</th>
             <th>Responsável</th>
             <th>Equipamento</th>
@@ -46,25 +47,35 @@
         </thead>
         
         <tbody>
+          <tr *ngIf="carregando">
+            <td colspan="8" class="text-center">Carregando atividades...</td>
+          </tr>
+          <tr *ngIf="!carregando && atividades.length === 0">
+            <td colspan="8" class="text-center">Nenhuma atividade encontrada.</td>
+          </tr>
+
           <tr *ngFor="let atv of atividades">
-            <td data-label="Data">{{ atv.data | date:'dd/MM/yyyy' }}</td>
-            <td data-label="Tipo de Atividade">{{ atv.tipo }}</td>
+            <td data-label="Data e Hora">{{ atv.dataAtividade | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td data-label="Tipo de Atividade">{{ atv.tipoAtividadeNome }}</td>
+            <td data-label="Descrição">{{ atv.descricao }}</td>
             <td data-label="Setor">{{ atv.setorNome }}</td>
             <td data-label="Responsável">{{ atv.responsavelNome }}</td>
-            <td data-label="Equipamento">{{ atv.equipamentoNome || '-' }}</td>
+            <td data-label="Equipamento">{{ atv.equipamentoNome }}</td>
+            
             <td data-label="Status">
               <span class="status-badge" [ngClass]="atv.status | lowercase">
-                {{ atv.status }}
+                {{ formatarStatus(atv.status) }}
               </span>
             </td>
+            
             <td data-label="Ações">
               <div class="action-buttons">
                   <button class="btn-icon edit" (click)="abrirModalEdicao(atv)" title="Editar Atividade">
-                    <mat-icon>edit</mat-icon>
+                    <i class="ph ph-pencil-simple"></i>
                   </button>
               
                   <button class="btn-icon delete" (click)="deletarAtividade(atv.id)" title="Excluir Atividade">
-                    <mat-icon>delete</mat-icon>
+                    <i class="ph ph-trash"></i>
                   </button>
               </div>
             </td>
