@@ -41,6 +41,7 @@ import { RegistrarInsumoDialogComponent } from './pages/insumos/registrar-insumo
 import { ClimaComponent } from './pages/clima/clima.component';
 import { RegistrarClimaDialogComponent } from './pages/clima/registrar-clima-dialog/registrar-clima-dialog.component';
 import { RegistrarTipoDialogComponent } from './pages/atividades/registrar-tipo-dialog/registrar-tipo-dialog.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { RegistrarTipoDialogComponent } from './pages/atividades/registrar-tipo-
     RegistrarInsumoDialogComponent,
     ClimaComponent,
     RegistrarClimaDialogComponent,
-    RegistrarTipoDialogComponent
+    RegistrarTipoDialogComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

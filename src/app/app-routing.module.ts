@@ -5,6 +5,7 @@ import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { authGuard } from './core/guards/auth.guard';
 import { PainelComponent } from './pages/painel/painel.component';
 import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PropriedadesComponent } from './pages/propriedades/propriedades.component'; 
 import { SetoresComponent } from './pages/setores/setores.component'; 
 import { EquipamentosComponent } from './pages/equipamentos/equipamentos.component';
@@ -22,8 +23,12 @@ const routes: Routes = [
     component: PainelComponent, 
     canActivate: [authGuard],
     children: [
-      { 
-        path: 'propriedades', 
+      {
+        path: '',
+        component: DashboardComponent
+      },
+      {
+        path: 'propriedades',
         component: PropriedadesComponent 
       },
       {
