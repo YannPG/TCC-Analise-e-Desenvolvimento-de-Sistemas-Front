@@ -5,14 +5,28 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ContextoService {
-  private propriedadeSelecionadaSource = new BehaviorSubject<number | null>(null);
-  
+  private static readonly CHAVE_STORAGE = 'sifeo_propriedade_atual';
+
+  private propriedadeSelecionadaSource = new BehaviorSubject<number | null>(this.carregarDoStorage());
+
   propriedadeAtual$ = this.propriedadeSelecionadaSource.asObservable();
 
   constructor() { }
 
+  private carregarDoStorage(): number | null {
+    const valor = localStorage.getItem(ContextoService.CHAVE_STORAGE);
+    return valor ? Number(valor) : null;
+  }
+
   mudarPropriedade(id: number | null): void {
     const valorFinal = id === 'null' as any ? null : Number(id);
+
+    if (valorFinal === null) {
+      localStorage.removeItem(ContextoService.CHAVE_STORAGE);
+    } else {
+      localStorage.setItem(ContextoService.CHAVE_STORAGE, String(valorFinal));
+    }
+
     this.propriedadeSelecionadaSource.next(valorFinal);
   }
 

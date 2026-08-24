@@ -65,7 +65,8 @@ export class AuthService {
   deslogar(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem('sifeo_nome');
+    localStorage.removeItem('sifeo_propriedade_atual');
     this.router.navigate(['/login']);
 
-  } 
+  }
 }

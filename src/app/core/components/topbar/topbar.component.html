@@ -6,8 +6,8 @@
 
   <div class="context-selector">
     <i class="ph ph-map-pin"></i>
-    <select class="farm-select" [(ngModel)]="propriedadeSelecionadaId" (change)="aoTrocarContexto($event)">
-      <option [value]="null">Todas as Propriedades</option>
+    <select class="farm-select" [(ngModel)]="propriedadeSelecionadaId" (change)="aoTrocarContexto($event)" [disabled]="propriedadesGlobais.length === 0">
+      <option *ngIf="propriedadesGlobais.length === 0" [value]="null" disabled>Nenhuma propriedade cadastrada</option>
       <option *ngFor="let prop of propriedadesGlobais" [value]="prop.id">
         {{ prop.nome }}
       </option>

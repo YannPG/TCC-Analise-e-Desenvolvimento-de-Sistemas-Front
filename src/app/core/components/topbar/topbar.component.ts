@@ -39,9 +39,24 @@ export class TopbarComponent implements OnInit {
     this.http.get<any[]>(environment.apiPropriedades).subscribe({
       next: (res) => {
         this.propriedadesGlobais = res;
+        this.definirPropriedadeInicial();
       },
       error: (err) => console.error('Erro ao carregar propriedades na Topbar:', err)
     });
+  }
+
+  private definirPropriedadeInicial(): void {
+    const idSalvo = this.contextoService.getPropriedadeAtual();
+    const propriedadeSalvaAindaExiste = this.propriedadesGlobais.some(p => p.id === idSalvo);
+
+    if (idSalvo !== null && propriedadeSalvaAindaExiste) {
+      this.propriedadeSelecionadaId = idSalvo;
+    } else if (this.propriedadesGlobais.length > 0) {
+      this.propriedadeSelecionadaId = this.propriedadesGlobais[0].id;
+      this.contextoService.mudarPropriedade(this.propriedadeSelecionadaId);
+    } else {
+      this.propriedadeSelecionadaId = null;
+    }
   }
 
   aoTrocarContexto(evento: any): void {
