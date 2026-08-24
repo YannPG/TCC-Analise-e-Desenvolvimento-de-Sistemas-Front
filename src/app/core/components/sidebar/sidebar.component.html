@@ -40,6 +40,10 @@
   </a>
   <a routerLink="/painel/clima" routerLinkActive="active" title="Clima" (click)="aoClicarNoLink()">
     <i class="ph ph-cloud-sun"></i>
-    <span>Clima</span>
+    <span *ngIf="expandido">Clima</span>
+  </a>
+  <a routerLink="/painel/documentos" routerLinkActive="active" title="Documentos" (click)="aoClicarNoLink()">
+    <i class="ph ph-file-text"></i>
+    <span *ngIf="expandido">Documentos</span>
   </a>
 </nav>

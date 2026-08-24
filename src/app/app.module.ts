@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,6 +44,11 @@ import { ClimaComponent } from './pages/clima/clima.component';
 import { RegistrarClimaDialogComponent } from './pages/clima/registrar-clima-dialog/registrar-clima-dialog.component';
 import { RegistrarTipoDialogComponent } from './pages/atividades/registrar-tipo-dialog/registrar-tipo-dialog.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DocumentosComponent } from './pages/documentos/documentos.component';
+import { CadastrarDocumentoDialogComponent } from './pages/documentos/cadastrar-documento-dialog/cadastrar-documento-dialog.component';
+import { RegistrarCategoriaDialogComponent } from './pages/documentos/registrar-categoria-dialog/registrar-categoria-dialog.component';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -71,7 +78,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     ClimaComponent,
     RegistrarClimaDialogComponent,
     RegistrarTipoDialogComponent,
-    DashboardComponent
+    DashboardComponent,
+    DocumentosComponent,
+    CadastrarDocumentoDialogComponent,
+    RegistrarCategoriaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +101,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
   ],
   providers: [
   provideEnvironmentNgxMask(),
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ],
   bootstrap: [AppComponent]
 })
