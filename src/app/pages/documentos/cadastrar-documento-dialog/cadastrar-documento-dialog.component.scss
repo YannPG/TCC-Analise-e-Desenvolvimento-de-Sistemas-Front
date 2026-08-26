@@ -1,7 +1,4 @@
-$green-primary: #557048;
-$green-hover: #6a8b59;
-$red-despesa: #c0392b;
-$red-despesa-hover: #d94a3a;
+@use '../../../../styles/colors' as *;
 
 .dialog-overlay {
   position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -83,8 +80,8 @@ $red-despesa-hover: #d94a3a;
     i { font-size: 18px; }
 
     &.despesa.ativo {
-      background-color: rgba(192, 57, 43, 0.15);
-      border-color: $red-despesa;
+      background-color: rgba(211, 47, 47, 0.15);
+      border-color: $red-danger;
       color: #ff8a75;
     }
 

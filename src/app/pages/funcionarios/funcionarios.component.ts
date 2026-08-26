@@ -43,8 +43,12 @@ export class FuncionariosComponent implements OnInit, OnDestroy {
   }
 
   carregarFuncionarios(): void {
-    if (!this.idSitioAtual) return;
-    
+    if (!this.idSitioAtual) {
+      this.funcionariosOriginais = [];
+      this.aplicarFiltro();
+      return;
+    }
+
     this.carregando = true;
     
     this.funcionarioService.listarTodos(this.idSitioAtual).subscribe({

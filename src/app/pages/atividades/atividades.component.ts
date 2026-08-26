@@ -40,6 +40,8 @@ export class AtividadesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.contextoSub = this.contextoService.propriedadeAtual$.subscribe(id => {
       this.idSitioAtual = id;
+      this.filtroTipo = 'ALL';
+      this.filtroSetor = 'ALL';
       this.carregarSetoresDoFiltro();
       this.carregarTiposDoFiltro();
       this.carregarAtividades();
@@ -63,7 +65,7 @@ export class AtividadesComponent implements OnInit, OnDestroy {
   }
 
   carregarTiposDoFiltro(): void {
-    if (!this.idSitioAtual) return;
+    if (!this.idSitioAtual) { this.listaTipos = []; return; }
     this.tipoAtividadeService.listarPorSitio(this.idSitioAtual).subscribe({
       next: (res) => this.listaTipos = res,
       error: (err) => console.error('Erro ao carregar tipos de atividade:', err)
@@ -71,9 +73,9 @@ export class AtividadesComponent implements OnInit, OnDestroy {
   }
 
   carregarSetoresDoFiltro(): void {
-    if (!this.idSitioAtual) return;
-    const urlSetores = environment.apiUrl.endsWith('/api') 
-      ? `${environment.apiUrl}/setores` 
+    if (!this.idSitioAtual) { this.listaSetores = []; return; }
+    const urlSetores = environment.apiUrl.endsWith('/api')
+      ? `${environment.apiUrl}/setores`
       : `${environment.apiUrl}/api/setores`;
 
     this.http.get<any[]>(urlSetores, {
@@ -85,8 +87,14 @@ export class AtividadesComponent implements OnInit, OnDestroy {
   }
 
   carregarAtividades(): void {
+    if (!this.idSitioAtual) {
+      this.atividadesOriginais = [];
+      this.aplicarFiltros();
+      return;
+    }
+
     this.carregando = true;
-    this.atividadeService.listarTodos(this.idSitioAtual || undefined).subscribe({
+    this.atividadeService.listarTodos(this.idSitioAtual).subscribe({
       next: (dados) => {
         this.atividadesOriginais = dados;
         this.aplicarFiltros(); 

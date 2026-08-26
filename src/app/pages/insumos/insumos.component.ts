@@ -42,7 +42,11 @@ export class InsumosComponent implements OnInit, OnDestroy {
   }
 
   carregarInsumos(): void {
-    if (!this.idSitioAtual) return;
+    if (!this.idSitioAtual) {
+      this.insumosOriginais = [];
+      this.aplicarFiltro();
+      return;
+    }
     this.carregando = true;
     
     this.insumoService.listarTodos(this.idSitioAtual).subscribe({

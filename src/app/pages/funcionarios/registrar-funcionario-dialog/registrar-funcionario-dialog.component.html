@@ -27,18 +27,25 @@
       <div class="form-row">
         <div class="form-group">
           <label>Telefone</label>
-          <input type="text" [(ngModel)]="dadosFuncionario.telefone" placeholder="(18) 99999-9999">
+          <input
+            type="text"
+            [(ngModel)]="dadosFuncionario.telefone"
+            mask="(00) 0000-0000||(00) 00000-0000"
+            placeholder="(18) 99999-9999">
         </div>
         <div class="form-group">
           <label>Email</label>
           <input type="email" [(ngModel)]="dadosFuncionario.email" placeholder="email@exemplo.com">
+          <small class="dica-campo" *ngIf="dadosFuncionario.email && !emailValido()">
+            Informe um e-mail válido.
+          </small>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>CPF (Apenas números)</label>
-          <input type="text" [(ngModel)]="dadosFuncionario.cpf" maxlength="11">
+          <input type="text" [(ngModel)]="dadosFuncionario.cpf" mask="000.000.000-00">
         </div>
         <div class="form-group">
           <label>Status *</label>

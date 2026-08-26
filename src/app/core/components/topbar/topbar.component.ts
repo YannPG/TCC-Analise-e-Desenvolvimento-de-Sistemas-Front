@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../../pages/login/services/auth.service'; 
-import { UsuarioService } from 'src/app/core/services/usuario.service'; 
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../../pages/login/services/auth.service';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { ContextoService } from 'src/app/core/services/contexto.service';
 import { environment } from 'src/environments/environment';
 
@@ -10,8 +11,8 @@ import { environment } from 'src/environments/environment';
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss']
 })
-export class TopbarComponent implements OnInit {
-  
+export class TopbarComponent implements OnInit, OnDestroy {
+
   @Output() alternarMenuMobile = new EventEmitter<void>();
 
   exibirDialogPerfil: boolean = false;
@@ -21,7 +22,9 @@ export class TopbarComponent implements OnInit {
   toastMsg: string | null = null;
   toastTipo: 'sucesso' | 'erro' = 'sucesso';
   propriedadesGlobais: any[] = [];
-  propriedadeSelecionadaId: number | null = null; 
+  propriedadeSelecionadaId: number | null = null;
+
+  private propriedadesAlteradasSub!: Subscription;
 
   constructor(
       private authService: AuthService,
@@ -33,6 +36,14 @@ export class TopbarComponent implements OnInit {
   ngOnInit(): void {
     this.buscarDadosDoBackend();
     this.carregarPropriedadesGlobais();
+
+    this.propriedadesAlteradasSub = this.contextoService.propriedadesAlteradas$.subscribe(() => {
+      this.carregarPropriedadesGlobais();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.propriedadesAlteradasSub) this.propriedadesAlteradasSub.unsubscribe();
   }
 
   carregarPropriedadesGlobais(): void {

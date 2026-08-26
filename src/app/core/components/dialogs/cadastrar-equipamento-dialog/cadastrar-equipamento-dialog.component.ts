@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EquipamentoService, EquipamentoRequest } from 'src/app/core/services/equipamento.service';
+import { ContextoService } from 'src/app/core/services/contexto.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -32,12 +33,17 @@ export class CadastrarEquipamentoDialogComponent implements OnInit {
   };
 
   constructor(
-    private equipamentoService: EquipamentoService, 
-    private http: HttpClient
+    private equipamentoService: EquipamentoService,
+    private http: HttpClient,
+    private contextoService: ContextoService
   ) {}
 
   ngOnInit(): void {
     this.carregarPropriedades();
+
+    if (!this.equipamentoParaEditar) {
+      this.dadosEquipamento.sitioId = this.contextoService.getPropriedadeAtual();
+    }
 
     if (this.equipamentoParaEditar) {
       this.isEdicao = true;

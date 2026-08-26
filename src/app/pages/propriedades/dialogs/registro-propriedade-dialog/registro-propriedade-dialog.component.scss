@@ -1,13 +1,4 @@
-$bg-overlay: rgba(0, 0, 0, 0.7);
-$bg-card: #1a1a1a;
-$border-color: #2a2a2a;
-$text-light: #f1f1f1;
-$text-muted: #888888;
-$green-primary: #557048;
-$green-hover: #6a8b59;
-$danger-color: #d32f2f;
-$danger-hover: #b71c1c;
-$bg-input: #222222;
+@use '../../../../../styles/colors' as *;
 
 .alert-error {
   background-color: rgba(211, 47, 47, 0.15);
@@ -30,7 +21,7 @@ $bg-input: #222222;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: $bg-overlay;
+  background-color: $overlay-bg;
   backdrop-filter: blur(3px);
   z-index: 2000;
   display: flex;
@@ -195,7 +186,7 @@ $bg-input: #222222;
     }
 
     .btn-danger {
-      background-color: $danger-color;
+      background-color: $red-danger;
       color: white;
 
       &:disabled {
@@ -205,7 +196,7 @@ $bg-input: #222222;
       }
 
       &:not(:disabled):hover {
-        background-color: $danger-hover;
+        background-color: $red-danger-hover;
       }
     }
   }

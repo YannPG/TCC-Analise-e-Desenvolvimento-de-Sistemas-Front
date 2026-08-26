@@ -1,10 +1,4 @@
-$bg-card: #1a1a1a;
-$bg-input: #222222;
-$green-primary: #557048;
-$green-hover: #6a8b59;
-$text-light: #f1f1f1;
-$text-muted: #888888;
-$border-color: #2a2a2a;
+@use '../../../../styles/colors' as *;
 
 .dialog-overlay {
   position: fixed;

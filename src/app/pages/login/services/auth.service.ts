@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { ContextoService } from 'src/app/core/services/contexto.service';
 
 export interface RespostaLogin {
   token: string;
@@ -17,8 +18,9 @@ export class AuthService {
   private readonly TOKEN_KEY = 'sifeo_token';
 
   constructor(
-    private http: HttpClient, 
-    private router: Router
+    private http: HttpClient,
+    private router: Router,
+    private contextoService: ContextoService
   ) {}
   
   realizarLogin(credenciais: any): Observable<RespostaLogin> {
@@ -65,8 +67,7 @@ export class AuthService {
   deslogar(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem('sifeo_nome');
-    localStorage.removeItem('sifeo_propriedade_atual');
+    this.contextoService.resetar();
     this.router.navigate(['/login']);
-
   }
 }

@@ -19,7 +19,6 @@ export class EquipamentosComponent implements OnInit, OnDestroy {
   equipamentosOriginais: any[] = []; 
   equipamentos: any[] = []; 
 
-  // Variáveis para controlar o escopo global (Topbar)
   idSitioAtual: number | null = null;
   private contextoSub!: Subscription;
 
@@ -29,7 +28,6 @@ export class EquipamentosComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Código correto, utilizando o nome exato do seu serviço
     this.contextoSub = this.contextoService.propriedadeAtual$.subscribe(id => {
       this.idSitioAtual = id;
       this.carregarEquipamentos();
@@ -43,9 +41,15 @@ export class EquipamentosComponent implements OnInit, OnDestroy {
   }
 
   carregarEquipamentos(): void {
+    if (!this.idSitioAtual) {
+      this.equipamentosOriginais = [];
+      this.equipamentos = [];
+      return;
+    }
+
     this.carregando = true;
-    
-    this.equipamentoService.listarTodos(this.idSitioAtual || undefined).subscribe({
+
+    this.equipamentoService.listarTodos(this.idSitioAtual).subscribe({
       next: (dados) => {
         this.equipamentosOriginais = dados;
         this.equipamentos = [...this.equipamentosOriginais];

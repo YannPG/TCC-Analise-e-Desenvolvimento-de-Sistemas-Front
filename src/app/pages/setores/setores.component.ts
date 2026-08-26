@@ -1,41 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { SetorService } from '../../core/services/setor.service'; 
-import { ContextoService } from '../../core/services/contexto.service'; 
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { SetorService } from '../../core/services/setor.service';
+import { ContextoService } from '../../core/services/contexto.service';
 
 @Component({
   selector: 'app-setores',
   templateUrl: './setores.component.html',
   styleUrls: ['./setores.component.scss']
 })
-export class SetoresComponent implements OnInit {
+export class SetoresComponent implements OnInit, OnDestroy {
 
   idSetorParaExcluir: number | null = null;
   mostrarModal: boolean = false;
   listaSetores: any[] = [];
   carregandoTabela: boolean = false;
-  idSitioAtual: number | null = null; 
+  idSitioAtual: number | null = null;
 
   setorSelecionadoParaEdicao: any = null;
 
+  private contextoSub!: Subscription;
+
   constructor(
     private setorService: SetorService,
-    private contextoService: ContextoService 
+    private contextoService: ContextoService
   ) {}
 
   ngOnInit(): void {
-    this.contextoService.propriedadeAtual$.subscribe((idContexto: any) => {
+    this.contextoSub = this.contextoService.propriedadeAtual$.subscribe((idContexto: any) => {
       this.idSitioAtual = idContexto;
       this.carregarSetores(idContexto);
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.contextoSub) this.contextoSub.unsubscribe();
+  }
+
   abrirModal(): void {
-    this.setorSelecionadoParaEdicao = null; 
+    this.setorSelecionadoParaEdicao = null;
     this.mostrarModal = true;
   }
 
   abrirModalEdicao(setor: any): void {
-    this.setorSelecionadoParaEdicao = setor; 
+    this.setorSelecionadoParaEdicao = setor;
     this.mostrarModal = true;
   }
 
@@ -49,7 +56,7 @@ export class SetoresComponent implements OnInit {
   }
 
   deletarSetor(id: number): void {
-    this.idSetorParaExcluir = id; 
+    this.idSetorParaExcluir = id;
   }
 
   aoResponderExclusao(confirmado: boolean): void {
@@ -66,18 +73,19 @@ export class SetoresComponent implements OnInit {
         }
       });
     } else {
-      this.idSetorParaExcluir = null; 
+      this.idSetorParaExcluir = null;
     }
   }
 
   carregarSetores(sitioId: number | null): void {
-    this.carregandoTabela = true;
-    
-    const request = sitioId 
-      ? this.setorService.listarPorSitio(sitioId) 
-      : this.setorService.listarTodos();
+    if (!sitioId) {
+      this.listaSetores = [];
+      return;
+    }
 
-    request.subscribe({
+    this.carregandoTabela = true;
+
+    this.setorService.listarPorSitio(sitioId).subscribe({
       next: (dados: any) => {
         this.listaSetores = dados;
         this.carregandoTabela = false;

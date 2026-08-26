@@ -4,7 +4,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { authGuard } from './core/guards/auth.guard';
 import { PainelComponent } from './pages/painel/painel.component';
-import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PropriedadesComponent } from './pages/propriedades/propriedades.component'; 
 import { SetoresComponent } from './pages/setores/setores.component'; 
@@ -16,7 +15,6 @@ import { ClimaComponent } from './pages/clima/clima.component';
 import { DocumentosComponent } from './pages/documentos/documentos.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registrar', component: RegistrarComponent },
   { 
@@ -63,8 +61,8 @@ const routes: Routes = [
     ]
   },
   
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({

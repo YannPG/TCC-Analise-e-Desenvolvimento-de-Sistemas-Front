@@ -221,7 +221,7 @@ export class CadastrarDocumentoDialogComponent implements OnInit {
       error: (erro) => {
         this.carregando = false;
         console.error(erro);
-        this.erroValidacao = erro?.error?.message || 'Erro ao salvar o documento. Verifique os dados.';
+        this.erroValidacao = erro?.error?.mensagem || erro?.error?.message || 'Erro ao salvar o documento. Verifique os dados.';
       }
     });
   }

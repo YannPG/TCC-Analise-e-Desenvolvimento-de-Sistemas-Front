@@ -66,13 +66,7 @@
 
 <app-registrar-funcionario-dialog
   *ngIf="mostrarModal"
-  (fechar)="fecharModal()"
-  (salvo)="carregarFuncionarios()">
-</app-registrar-funcionario-dialog>
-
-<app-registrar-funcionario-dialog
-  *ngIf="mostrarModal"
-  [funcionarioEdicao]="funcionarioSelecionado" 
+  [funcionarioEdicao]="funcionarioSelecionado"
   (fechar)="fecharModal()"
   (salvo)="carregarFuncionarios()">
 </app-registrar-funcionario-dialog>

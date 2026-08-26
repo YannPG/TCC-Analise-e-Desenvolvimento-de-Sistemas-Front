@@ -36,6 +36,13 @@
   @media (max-width: 500px) { flex-direction: column; gap: 0; }
 }
 
+.dica-campo {
+  display: block;
+  color: #ff8080;
+  font-size: 0.78rem;
+  margin-top: 6px;
+}
+
 .select-multiple {
   height: 100px;
   padding: 0.5rem !important;

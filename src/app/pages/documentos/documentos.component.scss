@@ -1,12 +1,4 @@
-$bg-dark: #121212;
-$bg-card: #1a1a1a;
-$bg-input: #222222;
-$green-primary: #557048;
-$green-hover: #6a8b59;
-$text-light: #f1f1f1;
-$text-muted: #888888;
-$border-color: #2a2a2a;
-$red-despesa: #c0392b;
+@use '../../../styles/colors' as *;
 
 .page-container {
   display: flex;
@@ -69,10 +61,10 @@ $red-despesa: #c0392b;
     color: $text-muted;
   }
 
-  &.receita i { color: #79a367; }
-  &.despesa i { color: #e05d4a; }
-  &.saldo i { color: #4a90b8; }
-  &.saldo.negativo strong { color: #e05d4a; }
+  &.receita i { color: $green-status; }
+  &.despesa i { color: $red-status; }
+  &.saldo i { color: $blue-accent; }
+  &.saldo.negativo strong { color: $red-status; }
 }
 
 .filtros-bar {
@@ -163,8 +155,8 @@ $red-despesa: #c0392b;
     font-size: 0.95rem;
     white-space: nowrap;
 
-    &.receita { color: #79a367; }
-    &.despesa { color: #e05d4a; }
+    &.receita { color: $green-status; }
+    &.despesa { color: $red-status; }
   }
 
   .documento-nome {
@@ -179,7 +171,7 @@ $red-despesa: #c0392b;
   .categoria-badge {
     align-self: flex-start;
     background-color: rgba(74, 144, 184, 0.15);
-    color: #6fb3d8;
+    color: $blue-accent-light;
     border: 1px solid rgba(111, 179, 216, 0.3);
     padding: 3px 10px;
     border-radius: 999px;
@@ -224,9 +216,9 @@ $red-despesa: #c0392b;
 
       i { font-size: 18px; }
 
-      &.baixar:hover { color: #6fb3d8; background-color: rgba(111, 179, 216, 0.15); }
+      &.baixar:hover { color: $blue-accent-light; background-color: rgba(111, 179, 216, 0.15); }
       &.edit:hover { color: $green-primary; background-color: rgba(85, 112, 72, 0.15); }
-      &.delete:hover { color: #d32f2f; background-color: rgba(211, 47, 47, 0.15); }
+      &.delete:hover { color: $red-danger; background-color: rgba(211, 47, 47, 0.15); }
     }
   }
 }

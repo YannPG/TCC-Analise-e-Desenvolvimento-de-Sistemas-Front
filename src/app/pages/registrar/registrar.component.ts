@@ -54,11 +54,8 @@ export class RegistrarComponent {
         this.carregando = false;
         let mensagem = 'Erro ao processar o cadastro. Tente novamente.';
 
-        if (erroHttp.status === 409 && erroHttp.error?.message) {
-          mensagem = erroHttp.error.message;
-        } else if (erroHttp.status === 400 && erroHttp.error) {
-          const primeiroErro = Object.values(erroHttp.error)[0];
-          if (typeof primeiroErro === 'string') mensagem = primeiroErro;
+        if (erroHttp.error?.mensagem || erroHttp.error?.message) {
+          mensagem = erroHttp.error.mensagem || erroHttp.error.message;
         }
 
         this.snackBar.open(mensagem, 'Fechar', { duration: 5000, panelClass: ['error-snackbar'] });

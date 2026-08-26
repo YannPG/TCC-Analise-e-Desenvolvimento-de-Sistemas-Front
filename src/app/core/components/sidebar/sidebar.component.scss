@@ -1,16 +1,11 @@
-$bg-sidebar: #1a1a1a;
-$green-primary: #557048; 
-$text-muted: #888888;
-$border-color: #2a2a2a;
-$text-light: #f1f1f1;
-$hover-bg: #222222;
+@use '../../../../styles/colors' as *;
 
 :host {
   display: flex;
   flex-direction: column;
   width: 260px;
   height: 100vh;
-  background-color: $bg-sidebar;
+  background-color: $bg-card;
   border-right: 1px solid $border-color;
   transition: width 0.3s ease, left 0.3s ease;
   
@@ -86,7 +81,7 @@ $hover-bg: #222222;
     }
 
     &:hover, &.active {
-      background-color: $hover-bg;
+      background-color: $bg-input;
       color: $green-primary;
       border-right: 3px solid $green-primary;
     }

@@ -9,6 +9,7 @@ export interface SetorRequest {
   hectares: number;
   plantio?: string;
   observacoes?: string;
+  status?: string;
 }
 
 @Injectable({

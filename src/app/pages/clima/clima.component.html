@@ -8,24 +8,26 @@
 
   <div class="content-card">
     <div class="filters-group">
-      
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <span style="color: #888; font-size: 0.9rem; font-weight: bold;">De:</span>
-        <input 
-          type="date" 
-          class="search-input" 
-          style="max-width: 140px; padding: 10px;"
-          [(ngModel)]="dataInicio" 
-          (ngModelChange)="aplicarFiltros()"
-        >
-        <span style="color: #888; font-size: 0.9rem; font-weight: bold; margin-left: 8px;">Até:</span>
-        <input 
-          type="date" 
-          class="search-input" 
-          style="max-width: 140px; padding: 10px;"
-          [(ngModel)]="dataFim" 
-          (ngModelChange)="aplicarFiltros()"
-        >
+
+      <div class="date-filter-group">
+        <div class="date-filter-item">
+          <span class="date-filter-label">De:</span>
+          <input
+            type="date"
+            class="search-input date-input"
+            [(ngModel)]="dataInicio"
+            (ngModelChange)="aplicarFiltros()"
+          >
+        </div>
+        <div class="date-filter-item">
+          <span class="date-filter-label">Até:</span>
+          <input
+            type="date"
+            class="search-input date-input"
+            [(ngModel)]="dataFim"
+            (ngModelChange)="aplicarFiltros()"
+          >
+        </div>
       </div>
       <select class="filter-select" [(ngModel)]="filtroTempo" (ngModelChange)="aplicarFiltros()">
         <option value="">Todos os Tipos</option>

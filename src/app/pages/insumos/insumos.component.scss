@@ -1,11 +1,4 @@
-$bg-dark: #121212;
-$bg-card: #1a1a1a;
-$green-primary: #557048;
-$green-hover: #6a8b59;
-$text-light: #f1f1f1;
-$text-muted: #888888;
-$border-color: #2a2a2a;
-$bg-input: #222222;
+@use '../../../styles/colors' as *;
 
 .page-container {
   display: flex;
@@ -140,28 +133,6 @@ $bg-input: #222222;
 
     &.edit:hover { color: $green-primary; background-color: rgba(85, 112, 72, 0.15); }
     &.delete:hover { color: #d32f2f; background-color: rgba(211, 47, 47, 0.15); }
-  }
-}
-
-.status-badge {
-  padding: 0.35rem 0.75rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: inline-block;
-
-  &.ativo {
-    background-color: transparent;
-    color: #557048;
-    border: 1px solid #557048;
-  }
-
-  &.inativo {
-    background-color: transparent;
-    color: #d32f2f;
-    border: 1px solid #d32f2f;
   }
 }
 

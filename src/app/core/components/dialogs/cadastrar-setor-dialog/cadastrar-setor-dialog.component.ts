@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SetorService, SetorRequest } from 'src/app/core/services/setor.service';
+import { ContextoService } from 'src/app/core/services/contexto.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -36,10 +37,18 @@ export class CadastrarSetorDialogComponent implements OnInit {
   carregando: boolean = false;
   isEdicao: boolean = false;
 
-  constructor(private setorService: SetorService, private http: HttpClient) {}
+  constructor(
+    private setorService: SetorService,
+    private http: HttpClient,
+    private contextoService: ContextoService
+  ) {}
 
   ngOnInit(): void {
     this.carregarPropriedades();
+
+    if (!this.setorParaEditar) {
+      this.dadosSetor.sitioId = this.contextoService.getPropriedadeAtual();
+    }
 
     if (this.setorParaEditar) {
       this.isEdicao = true;
@@ -83,7 +92,7 @@ export class CadastrarSetorDialogComponent implements OnInit {
       return;
     }
 
-    const payload: any = {
+    const payload: SetorRequest = {
       sitioId: Number(this.dadosSetor.sitioId),
       nome: this.dadosSetor.nome,
       hectares: Number(this.dadosSetor.hectares),

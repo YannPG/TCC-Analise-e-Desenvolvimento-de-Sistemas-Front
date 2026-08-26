@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +8,10 @@ export class ContextoService {
   private static readonly CHAVE_STORAGE = 'sifeo_propriedade_atual';
 
   private propriedadeSelecionadaSource = new BehaviorSubject<number | null>(this.carregarDoStorage());
-
   propriedadeAtual$ = this.propriedadeSelecionadaSource.asObservable();
+
+  private propriedadesAlteradasSource = new Subject<void>();
+  propriedadesAlteradas$ = this.propriedadesAlteradasSource.asObservable();
 
   constructor() { }
 
@@ -19,7 +21,7 @@ export class ContextoService {
   }
 
   mudarPropriedade(id: number | null): void {
-    const valorFinal = id === 'null' as any ? null : Number(id);
+    const valorFinal = id === null ? null : Number(id);
 
     if (valorFinal === null) {
       localStorage.removeItem(ContextoService.CHAVE_STORAGE);
@@ -32,5 +34,14 @@ export class ContextoService {
 
   getPropriedadeAtual(): number | null {
     return this.propriedadeSelecionadaSource.getValue();
+  }
+
+  notificarAlteracaoPropriedades(): void {
+    this.propriedadesAlteradasSource.next();
+  }
+
+  resetar(): void {
+    localStorage.removeItem(ContextoService.CHAVE_STORAGE);
+    this.propriedadeSelecionadaSource.next(null);
   }
 }

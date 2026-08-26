@@ -1,11 +1,4 @@
-$bg-dark: #121212;
-$bg-card: #1a1a1a;
-$green-primary: #557048;
-$green-hover: #6a8b59;
-$text-light: #f1f1f1;
-$text-muted: #888888;
-$border-color: #2a2a2a;
-$bg-input: #222222;
+@use '../../../styles/colors' as *;
 
 .page-container {
   display: flex;
@@ -150,23 +143,35 @@ $bg-input: #222222;
 
 .status-badge {
   padding: 0.35rem 0.75rem;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   display: inline-block;
 
-  &.ativo {
-    background-color: transparent;
-    color: #557048;
-    border: 1px solid #557048;
+  &.agendada {
+    background-color: rgba(211, 142, 47, 0.15);
+    color: #e6a23c;
+    border: 1px solid rgba(230, 162, 60, 0.3);
   }
 
-  &.inativo {
-    background-color: transparent;
-    color: #d32f2f;
-    border: 1px solid #d32f2f;
+  &.em_andamento {
+    background-color: rgba(74, 144, 184, 0.15);
+    color: #6fb3d8;
+    border: 1px solid rgba(111, 179, 216, 0.3);
+  }
+
+  &.concluida {
+    background-color: rgba(77, 102, 66, 0.15);
+    color: #79a367;
+    border: 1px solid rgba(121, 163, 103, 0.3);
+  }
+
+  &.cancelada {
+    background-color: rgba(211, 47, 47, 0.15);
+    color: #ff8080;
+    border: 1px solid rgba(211, 47, 47, 0.3);
   }
 }
 

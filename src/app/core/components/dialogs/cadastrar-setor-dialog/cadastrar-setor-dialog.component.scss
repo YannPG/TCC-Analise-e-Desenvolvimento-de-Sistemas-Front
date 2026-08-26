@@ -105,7 +105,7 @@
 
     &:focus {
       outline: none;
-      border-color: #4d6642;
+      border-color: #557048;
     }
 
     &::placeholder {
@@ -152,9 +152,9 @@
 }
 
 .btn-primary {
-  background-color: #3b4d32;
+  background-color: #557048;
   color: #fff;
-  border: 1px solid #4d6642;
+  border: 1px solid #557048;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   font-weight: 600;
@@ -162,7 +162,7 @@
   transition: all 0.2s ease;
 
   &:hover:not([disabled]) {
-    background-color: #4d6642;
+    background-color: #6a8b59;
   }
 
   &[disabled] {

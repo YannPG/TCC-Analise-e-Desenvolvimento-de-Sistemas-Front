@@ -43,8 +43,8 @@ export class LoginComponent {
           } 
           else if (erroHttp.status === 401 || erroHttp.status === 403 || erroHttp.status === 400) {
             
-            if (erroHttp.error && erroHttp.error.message) {
-              mensagemErro = erroHttp.error.message;
+            if (erroHttp.error && (erroHttp.error.mensagem || erroHttp.error.message)) {
+              mensagemErro = erroHttp.error.mensagem || erroHttp.error.message;
             } else if (typeof erroHttp.error === 'string' && erroHttp.error.trim() !== '') {
               mensagemErro = erroHttp.error;
             } else {

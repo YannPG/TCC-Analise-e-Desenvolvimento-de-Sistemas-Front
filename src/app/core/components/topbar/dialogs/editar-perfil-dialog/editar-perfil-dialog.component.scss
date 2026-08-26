@@ -1,13 +1,4 @@
-$bg-overlay: rgba(0, 0, 0, 0.7);
-$bg-card: #1a1a1a;
-$border-color: #2a2a2a;
-$text-light: #f1f1f1;
-$text-muted: #888888;
-$green-primary: #557048;
-$green-hover: #6a8b59;
-$danger-color: #d32f2f;
-$danger-hover: #b71c1c;
-$bg-input: #222222;
+@use '../../../../../../styles/colors' as *;
 
 .dialog-overlay {
   position: fixed;
@@ -15,7 +6,7 @@ $bg-input: #222222;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: $bg-overlay;
+  background-color: $overlay-bg;
   backdrop-filter: blur(3px);
   z-index: 2000;
   display: flex;
@@ -28,7 +19,7 @@ $bg-input: #222222;
 .dialog-card {
   background-color: $bg-card;
   width: 100%;
-  max-width: 500px; /* Ajustado para 500px, ideal para modais de perfil */
+  max-width: 500px; 
   max-height: 90vh; 
   border-radius: 8px;
   border: 1px solid $border-color;

@@ -47,7 +47,11 @@ export class ClimaComponent implements OnInit, OnDestroy {
   }
 
   carregarRegistros(): void {
-    if (!this.idSitioAtual) return;
+    if (!this.idSitioAtual) {
+      this.registrosOriginais = [];
+      this.aplicarFiltros();
+      return;
+    }
     this.carregando = true;
     
     this.climaService.listarTodos(this.idSitioAtual).subscribe({

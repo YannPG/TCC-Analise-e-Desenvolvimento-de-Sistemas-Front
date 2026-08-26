@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FuncionarioService } from '../../../core/services/funcionario.service';
 import { ContextoService } from '../../../core/services/contexto.service';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 @Component({
   selector: 'app-registrar-funcionario-dialog',
   templateUrl: './registrar-funcionario-dialog.component.html',
@@ -9,17 +11,17 @@ import { ContextoService } from '../../../core/services/contexto.service';
 })
 export class RegistrarFuncionarioDialogComponent implements OnInit {
 
-  @Input() funcionarioEdicao: any = null; 
+  @Input() funcionarioEdicao: any = null;
   @Output() fechar = new EventEmitter<void>();
   @Output() salvo = new EventEmitter<void>();
 
   carregando: boolean = false;
   erroValidacao: string | null = null;
   idSitioAtual: number | null = null;
-  isEdicao: boolean = false; 
+  isEdicao: boolean = false;
 
   dadosFuncionario: any = {
-    nomeCompleto: '', cpf: '', telefone: '', email: '', 
+    nomeCompleto: '', cpf: '', telefone: '', email: '',
     cargo: '', dataAdmissao: '', dataNascimento: '', status: 'ATIVO'
   };
 
@@ -33,12 +35,16 @@ export class RegistrarFuncionarioDialogComponent implements OnInit {
 
     if (this.funcionarioEdicao) {
       this.isEdicao = true;
-      this.dadosFuncionario = { ...this.funcionarioEdicao }; 
+      this.dadosFuncionario = { ...this.funcionarioEdicao };
     }
   }
 
   cancelar(): void {
     this.fechar.emit();
+  }
+
+  emailValido(): boolean {
+    return EMAIL_REGEX.test(this.dadosFuncionario.email);
   }
 
   confirmar(): void {
@@ -51,6 +57,11 @@ export class RegistrarFuncionarioDialogComponent implements OnInit {
 
     if (!this.dadosFuncionario.nomeCompleto || !this.dadosFuncionario.cargo || !this.dadosFuncionario.dataAdmissao) {
       this.erroValidacao = 'Preencha todos os campos obrigatórios (*).';
+      return;
+    }
+
+    if (this.dadosFuncionario.email && !this.emailValido()) {
+      this.erroValidacao = 'Informe um e-mail válido.';
       return;
     }
 
@@ -67,7 +78,7 @@ export class RegistrarFuncionarioDialogComponent implements OnInit {
         error: (erro: any) => {
           this.carregando = false;
           console.error('Erro ao editar:', erro);
-          this.erroValidacao = 'Erro ao atualizar os dados.';
+          this.erroValidacao = erro?.error?.mensagem || erro?.error?.message || 'Erro ao atualizar os dados.';
         }
       });
     } else {
@@ -80,7 +91,7 @@ export class RegistrarFuncionarioDialogComponent implements OnInit {
         error: (erro: any) => {
           this.carregando = false;
           console.error('Erro ao cadastrar:', erro);
-          this.erroValidacao = 'Erro ao salvar. Verifique se CPF/Email já existem.';
+          this.erroValidacao = erro?.error?.mensagem || erro?.error?.message || 'Erro ao salvar o funcionário.';
         }
       });
     }

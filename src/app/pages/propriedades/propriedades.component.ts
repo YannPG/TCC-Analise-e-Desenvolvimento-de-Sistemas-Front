@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PropriedadesService, Propriedade } from 'src/app/core/services/propriedades.service';
+import { ContextoService } from 'src/app/core/services/contexto.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -18,7 +19,11 @@ export class PropriedadesComponent implements OnInit {
   exibirDialogExclusao: boolean = false;
   propriedadeParaExcluir: any = null;
 
-  constructor(private propriedadesService: PropriedadesService, private snackBar: MatSnackBar) {}
+  constructor(
+    private propriedadesService: PropriedadesService,
+    private snackBar: MatSnackBar,
+    private contextoService: ContextoService
+  ) {}
 
   private mostrarMensagem(mensagem: string, tipo: 'sucesso' | 'erro'): void {
     this.snackBar.open(mensagem, 'Fechar', {
@@ -51,14 +56,15 @@ export class PropriedadesComponent implements OnInit {
   salvarNovaPropriedade(dadosFormulario: any): void {
     this.propriedadesService.criarPropriedade(dadosFormulario).subscribe({
       next: () => {
-        this.exibirDialogRegistro = false; 
-        this.carregarDadosReais(); 
+        this.exibirDialogRegistro = false;
+        this.carregarDadosReais();
+        this.contextoService.notificarAlteracaoPropriedades();
         this.mostrarMensagem('Propriedade registrada com sucesso!', 'sucesso');
       },
       error: (erro) => {
         console.error('Falha ao registrar a propriedade', erro);
         
-        const mensagemServidor = erro.error?.message || 'Erro de validação ao salvar os dados no servidor.';
+        const mensagemServidor = erro.error?.mensagem || erro.error?.message || 'Erro de validação ao salvar os dados no servidor.';
         
         this.mostrarMensagem(`Atenção: ${mensagemServidor}`, 'erro');
       }
@@ -76,30 +82,14 @@ export class PropriedadesComponent implements OnInit {
     this.propriedadesService.atualizarPropriedade(id, dadosAtualizados).subscribe({
       next: () => {
         this.exibirDialogDetalhes = false;
-        this.carregarDadosReais(); 
+        this.carregarDadosReais();
+        this.contextoService.notificarAlteracaoPropriedades();
       },
       error: (erro) => {
         console.error('Falha ao atualizar', erro);
         alert('Erro ao salvar as alterações.');
       }
     });
-  }
-
-  deletarPropriedade(id: number, nome: string): void {
-    const confirmacao = window.confirm(`ATENÇÃO: Tem certeza que deseja excluir a propriedade "${nome}"?\n\nEsta ação é irreversível e pode falhar se houver dados vinculados a ela.`);
-    
-    if (confirmacao) {
-      this.propriedadesService.deletar(id).subscribe({
-        next: () => {
-          alert('Propriedade excluída com sucesso!');
-          this.carregarDadosReais();
-        },
-        error: (err) => {
-          console.error(err);
-          alert('Erro ao excluir a propriedade. Verifique se existem setores vinculados a ela ou tente novamente.');
-        }
-      });
-    }
   }
 
   iniciarExclusao(prop: any): void {
@@ -116,10 +106,11 @@ export class PropriedadesComponent implements OnInit {
         this.exibirDialogExclusao = false;
         this.propriedadeParaExcluir = null;
         this.carregarDadosReais();
+        this.contextoService.notificarAlteracaoPropriedades();
       },
       error: (err) => {
         console.error(err);
-        const mensagemServidor = err.error?.message || 'Erro ao excluir a propriedade.';
+        const mensagemServidor = err.error?.mensagem || err.error?.message || 'Erro ao excluir a propriedade.';
         this.mostrarMensagem(`Erro: ${mensagemServidor}`, 'erro');
         this.exibirDialogExclusao = false;
       }
