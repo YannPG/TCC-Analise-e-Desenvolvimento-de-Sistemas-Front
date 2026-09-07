@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'sifeo-frontend'`, () => {
+  it(`should have as title 'horizontes-do-agro'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('sifeo-frontend');
+    expect(app.title).toEqual('horizontes-do-agro');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('sifeo-frontend app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('horizontes-do-agro app is running!');
   });
 });

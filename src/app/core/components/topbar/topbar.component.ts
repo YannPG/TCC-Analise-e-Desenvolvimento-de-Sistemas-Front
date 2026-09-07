@@ -83,7 +83,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   buscarDadosDoBackend(): void {
     this.usuarioService.obterPerfilAtual().subscribe({
       next: (perfilDTO) => {
-        this.nomeUsuario = perfilDTO.nomeCompleto || perfilDTO.nomeUsuario || perfilDTO.nome || 'Usuário SIFEO'; 
+        this.nomeUsuario = perfilDTO.nomeCompleto || perfilDTO.nomeUsuario || perfilDTO.nome || 'Usuário'; 
         this.gerarIniciais();
         this.dadosUsuarioAtual = {
           id: perfilDTO.id,
@@ -96,7 +96,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
       },
       error: (erro) => {
         console.error('Falha ao buscar dados do usuário:', erro);
-        this.nomeUsuario = 'Usuário SIFEO';
+        this.nomeUsuario = 'Usuário';
         this.gerarIniciais();
       }
     });

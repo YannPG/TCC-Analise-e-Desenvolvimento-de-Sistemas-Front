@@ -44,7 +44,7 @@ export class PropriedadesComponent implements OnInit {
         this.propriedades = dadosDoBackend;
       },
       error: (erro) => {
-        console.error('Falha ao buscar propriedades do SIFEO', erro);
+        console.error('Falha ao buscar propriedades', erro);
       }
     });
   }

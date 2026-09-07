@@ -43,8 +43,16 @@
     font-size: 1.5rem;
     font-weight: bold;
 
-    i { margin-right: 8px; }
-    .brand-text { color: $text-light; }
+    i { margin-right: 8px; flex-shrink: 0; }
+
+    .brand-text {
+      color: $text-light;
+      font-size: 1rem;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .toggle-btn {
