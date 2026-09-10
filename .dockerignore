@@ -1,0 +1,14 @@
+node_modules/
+dist/
+tmp/
+out-tsc/
+
+.git/
+.gitignore
+.idea/
+.vscode/
+.claude/
+
+Dockerfile
+.dockerignore
+*.log
