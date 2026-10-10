@@ -1,3 +1,5 @@
+@use '../../../styles/colors' as *;
+
 .split-layout {
   display: flex;
   min-height: 100vh;
@@ -6,8 +8,8 @@
 
 .banner-side {
   flex: 1;
-  background-color: #5c7759; 
-  color: #ffffff;
+  background-color: $green-primary; 
+  color: $text-light;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +50,7 @@
 
 .form-side {
   flex: 1;
-  background-color: #121212; 
+  background-color: $bg-dark; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,7 +60,7 @@
 .dark-form {
   width: 100%;
   max-width: 450px;
-  color: #ffffff;
+  color: $text-light;
 
   h2 {
     font-family: 'Georgia', serif;
@@ -75,14 +77,14 @@
     label {
       font-size: 0.85rem;
       margin-bottom: 8px;
-      color: #e0e0e0;
+      color: $text-light;
       font-weight: 500;
     }
 
     input {
-      background-color: #2a2a2a; 
-      border: 1px solid #3d3d3d;
-      color: #ffffff;
+      background-color: $bg-input; 
+      border: 1px solid $border-color;
+      color: $text-light;
       padding: 14px 16px;
       border-radius: 4px;
       font-size: 0.95rem;
@@ -90,11 +92,11 @@
       transition: border-color 0.2s ease;
 
       &::placeholder {
-        color: #7a7a7a;
+        color: $text-muted;
       }
 
       &:focus {
-        border-color: #5c7759; 
+        border-color: $green-primary; 
       }
     }
   }
@@ -113,14 +115,14 @@
     align-items: center;
     text-align: center;
     margin: 30px 0;
-    color: #666;
+    color: $text-muted;
     font-size: 0.8rem;
 
     &::before,
     &::after {
       content: '';
       flex: 1;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid $border-color;
     }
 
     &::before {
@@ -146,13 +148,13 @@
     .eye-icon {
       position: absolute;
       right: 16px;
-      color: #7a7a7a;
+      color: $text-muted;
       cursor: pointer;
       font-size: 20px;
       transition: color 0.2s;
 
       &:hover {
-        color: #ffffff;
+        color: $text-light;
       }
     }
   }
@@ -160,8 +162,8 @@
   .btn-submit {
     width: 100%;
     padding: 16px;
-    background-color: #5c7759;
-    color: #ffffff;
+    background-color: $green-primary;
+    color: $text-light;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
@@ -171,12 +173,12 @@
     transition: background-color 0.2s;
 
     &:hover:not(:disabled) {
-      background-color: #4a6148;
+      background-color: $green-hover;
     }
 
     &:disabled {
-      background-color: #2a2a2a;
-      color: #555555;
+      background-color: $border-color;
+      color: $text-muted;
       cursor: not-allowed;
     }
   }
@@ -185,10 +187,10 @@
     text-align: center;
     margin-top: 24px;
     font-size: 0.85rem;
-    color: #999;
+    color: $text-muted;
 
     a {
-      color: #5c7759;
+      color: $green-primary;
       text-decoration: none;
       font-weight: 500;
       margin-left: 4px;

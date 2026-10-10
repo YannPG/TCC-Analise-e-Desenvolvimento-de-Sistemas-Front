@@ -1,3 +1,5 @@
+@use '../../../styles/colors' as *;
+
 .login-layout {
   display: flex;
   height: 100vh;
@@ -8,11 +10,11 @@
 
 .branding-panel {
   flex: 1;
-  background-color: #5d7454;
+  background-color: $green-primary;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: $text-light;
   padding: 40px;
 
   .branding-content {
@@ -50,11 +52,11 @@
 
 .form-panel {
   flex: 1;
-  background-color: #171816; 
+  background-color: $bg-dark; 
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #f0f0f0;
+  color: $text-light;
 
   .form-content {
     width: 100%;
@@ -81,7 +83,7 @@
         label {
           font-size: 0.85rem;
           font-weight: 500;
-          color: #e0e0e0;
+          color: $text-light;
         }
       }
 
@@ -89,15 +91,15 @@
         width: 100%;
         
         .mdc-text-field--outlined {
-          --mdc-outlined-text-field-container-color: #20211f; 
-          --mdc-outlined-text-field-outline-color: #4a4b49; 
-          --mdc-outlined-text-field-hover-outline-color: #5d7454; 
-          --mdc-outlined-text-field-focus-outline-color: #5d7454;
-          --mdc-outlined-text-field-input-text-color: white;
+          --mdc-outlined-text-field-container-color: #{$bg-input}; 
+          --mdc-outlined-text-field-outline-color: #{$border-color}; 
+          --mdc-outlined-text-field-hover-outline-color: #{$green-primary}; 
+          --mdc-outlined-text-field-focus-outline-color: #{$green-primary};
+          --mdc-outlined-text-field-input-text-color: #{$text-light};
         }
 
         .mdc-text-field__input::placeholder {
-          color: #777;
+          color: $text-muted;
         }
 
         .mat-mdc-form-field-subscript-wrapper {
@@ -106,12 +108,16 @@
       }
 
       .eye-icon {
-        color: #777;
+        color: $text-muted;
       }
 
       .btn-submit {
-        background-color: #5d7454;
-        color: white;
+        background-color: $green-primary;
+        color: $text-light;
+
+        &:hover:not(:disabled) {
+          background-color: $green-hover;
+        }
         padding: 26px 0;
         font-size: 1rem;
         font-weight: bold;
@@ -119,24 +125,24 @@
         border-radius: 4px;
 
         &:disabled {
-          background-color: #3b4736;
-          color: #888;
+          background-color: $border-color;
+          color: $text-muted;
         }
       }
 
       .register-link {
         text-align: center;
         font-size: 0.85rem;
-        color: #a0a0a0;
+        color: $text-muted;
         margin-top: 15px;
 
         a {
-          color: #e0e0e0;
+          color: $text-light;
           text-decoration: underline;
           cursor: pointer;
 
           &:hover {
-            color: #5d7454;
+            color: $green-primary;
           }
         }
       }
