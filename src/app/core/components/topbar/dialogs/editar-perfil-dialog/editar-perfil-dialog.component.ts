@@ -17,7 +17,7 @@ export class EditarPerfilDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dadosEdicao = { ...this.usuario };
-    
+
     if (this.dadosEdicao.cpf) {
       this.dadosEdicao.cpf = DocumentoUtils.formatarDocumento(this.dadosEdicao.cpf);
     }
@@ -44,7 +44,6 @@ export class EditarPerfilDialogComponent implements OnInit {
       return;
     }
 
-    // NOVA VALIDAÇÃO: Autenticação dupla de senha
     if (this.dadosEdicao.senha) {
       if (this.dadosEdicao.senha !== this.dadosEdicao.confirmarSenha) {
         this.erroValidacao = 'As senhas não coincidem!';
@@ -52,11 +51,9 @@ export class EditarPerfilDialogComponent implements OnInit {
       }
     }
 
-    // CLONAGEM SEGURA: Removemos campos exclusivos do frontend antes de enviar à API
     const payloadParaBackend = { ...this.dadosEdicao };
-    delete payloadParaBackend.confirmarSenha; // O Java não precisa e não deve receber isso
+    delete payloadParaBackend.confirmarSenha;
 
-    // Se a senha estiver vazia, removemos para o Java não tentar processar uma string vazia
     if (!payloadParaBackend.senha || payloadParaBackend.senha.trim() === '') {
         delete payloadParaBackend.senha;
     }

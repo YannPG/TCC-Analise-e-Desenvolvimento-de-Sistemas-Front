@@ -1,5 +1,5 @@
 <div class="login-layout">
-  
+
   <div class="branding-panel">
     <div class="branding-content">
       <div class="logo">
@@ -15,7 +15,7 @@
       <h2>Informe seus dados para<br>realizar o Login</h2>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-        
+
         <div class="input-group">
           <label>Email</label>
           <mat-form-field appearance="outline" class="custom-dark-input">
@@ -33,7 +33,6 @@
           </mat-form-field>
         </div>
 
-        <!-- Botão Entrar -->
         <button mat-flat-button type="submit" [disabled]="loginForm.invalid" class="btn-submit">
           Entrar
         </button>

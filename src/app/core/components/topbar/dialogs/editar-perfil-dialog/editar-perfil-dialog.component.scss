@@ -13,14 +13,14 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .dialog-card {
   background-color: $bg-card;
   width: 100%;
-  max-width: 500px; 
-  max-height: 90vh; 
+  max-width: 500px;
+  max-height: 90vh;
   border-radius: 8px;
   border: 1px solid $border-color;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -50,9 +50,9 @@
       transition: color 0.2s ease;
       display: flex;
       align-items: center;
-      
-      &:hover { 
-        color: $text-light; 
+
+      &:hover {
+        color: $text-light;
       }
     }
   }
@@ -62,7 +62,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow-y: auto; 
+    overflow-y: auto;
     box-sizing: border-box;
 
     .alert-error {
@@ -100,8 +100,8 @@
         box-sizing: border-box;
         transition: border-color 0.2s ease;
 
-        &:focus { 
-          border-color: $green-primary; 
+        &:focus {
+          border-color: $green-primary;
         }
       }
     }
@@ -128,27 +128,26 @@
       background: transparent;
       border: 1px solid $border-color;
       color: $text-light;
-      
-      &:hover { 
-        background: #2a2a2a; 
+
+      &:hover {
+        background: #2a2a2a;
       }
     }
 
     .btn-primary {
       background-color: $green-primary;
       color: white;
-      
-      &:hover { 
-        background-color: $green-hover; 
+
+      &:hover {
+        background-color: $green-hover;
       }
     }
   }
 }
 
-/* Responsividade Mobile */
 @media (max-width: 480px) {
   .dialog-overlay {
-    padding: 12px; 
+    padding: 12px;
   }
 
   .dialog-card {
@@ -160,7 +159,7 @@
     }
 
     .dialog-actions {
-      flex-direction: column-reverse; 
+      flex-direction: column-reverse;
       gap: 8px;
 
       button {

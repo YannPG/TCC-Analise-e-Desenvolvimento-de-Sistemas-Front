@@ -8,12 +8,12 @@
 
   <div class="content-card">
     <div class="filters-group">
-      <input 
-        type="text" 
+      <input
+        type="text"
         class="search-input"
-        placeholder="Buscar funcionário..." 
+        placeholder="Buscar funcionário..."
         name="termoBusca"
-        [(ngModel)]="termoBusca" 
+        [(ngModel)]="termoBusca"
         (ngModelChange)="aplicarFiltro()">
     </div>
 
@@ -38,7 +38,7 @@
             <td colspan="7" class="text-center">Nenhum funcionário encontrado.</td>
           </tr>
           <tr *ngFor="let func of funcionariosFiltrados">
-            <!-- Os atributos data-label são essenciais para o mobile -->
+
             <td data-label="Nome">{{ func.nomeCompleto }}</td>
             <td data-label="Cargo">{{ func.cargo || '-' }}</td>
             <td data-label="Telefone">{{ func.telefone || '-' }}</td>
@@ -73,7 +73,7 @@
 
 <div class="confirm-dialog-overlay" *ngIf="mostrarModalExclusao">
   <div class="confirm-dialog-card">
-    
+
     <header class="confirm-header">
       <div class="title-wrapper">
         <i class="ph-fill ph-warning text-warning"></i>
@@ -96,6 +96,6 @@
         {{ carregandoExclusao ? 'Excluindo...' : 'Sim, Excluir' }}
       </button>
     </footer>
-    
+
   </div>
 </div>

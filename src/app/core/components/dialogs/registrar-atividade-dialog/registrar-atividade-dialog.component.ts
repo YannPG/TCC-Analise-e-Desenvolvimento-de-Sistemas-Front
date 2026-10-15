@@ -20,7 +20,7 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
   erroValidacao: string | null = null;
   mostrarModalTipo: boolean = false;
 
-  idSitioAtual: number | null = null; 
+  idSitioAtual: number | null = null;
 
   setores: any[] = [];
   tiposAtividade: any[] = [];
@@ -50,11 +50,11 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
     if (this.atividadeParaEditar) {
       this.isEdicao = true;
       this.dadosAtividade = {
-        setorId: this.atividadeParaEditar.setorId || this.atividadeParaEditar.setor?.id || null, 
+        setorId: this.atividadeParaEditar.setorId || this.atividadeParaEditar.setor?.id || null,
         tipoAtividadeId: this.atividadeParaEditar.tipoAtividadeId || this.atividadeParaEditar.tipoAtividade?.id || null,
         responsavelId: this.atividadeParaEditar.responsavelId || this.atividadeParaEditar.responsavel?.id || null,
         equipamentoId: this.atividadeParaEditar.equipamentoId || this.atividadeParaEditar.equipamento?.id || null,
-        dataAtividade: this.atividadeParaEditar.dataAtividade ? this.atividadeParaEditar.dataAtividade.substring(0, 16) : '', // Formata para o input datetime-local
+        dataAtividade: this.atividadeParaEditar.dataAtividade ? this.atividadeParaEditar.dataAtividade.substring(0, 16) : '',
         status: this.atividadeParaEditar.status || 'AGENDADA',
         descricao: this.atividadeParaEditar.descricao || ''
       };
@@ -64,22 +64,22 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
   carregarFiltros(): void {
     if (!this.idSitioAtual) {
       console.warn('Alerta Arquitetural: Nenhuma propriedade está selecionada na Topbar.');
-      return; 
+      return;
     }
 
-    const urlSetores = environment.apiUrl.endsWith('/api') 
-      ? `${environment.apiUrl}/setores` 
+    const urlSetores = environment.apiUrl.endsWith('/api')
+      ? `${environment.apiUrl}/setores`
       : `${environment.apiUrl}/api/setores`;
 
     this.http.get<any[]>(urlSetores, { params: { sitioId: this.idSitioAtual.toString() } })
       .subscribe({ next: (res) => this.setores = res });
-    
+
     this.http.get<any[]>(environment.apiTiposAtividade, { params: { sitioId: this.idSitioAtual.toString() } })
       .subscribe({ next: (res) => this.tiposAtividade = res });
-    
+
     this.http.get<any[]>(environment.apiFuncionarios)
       .subscribe({ next: (res) => this.funcionarios = res });
-    
+
     this.http.get<any[]>(environment.apiEquipamentos, { params: { sitioId: this.idSitioAtual.toString() } })
       .subscribe({ next: (res) => this.equipamentos = res });
   }
@@ -115,7 +115,7 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
     }
 
     const payload: AtividadeRequest = {
-      sitioId: this.idSitioAtual!, 
+      sitioId: this.idSitioAtual!,
       setorId: Number(this.dadosAtividade.setorId),
       tipoAtividadeId: Number(this.dadosAtividade.tipoAtividadeId),
       responsavelId: Number(this.dadosAtividade.responsavelId),
@@ -157,7 +157,7 @@ export class RegistrarAtividadeDialogComponent implements OnInit {
   }
 
   onTipoCriado(novoTipo: any): void {
-    this.tiposAtividade.push(novoTipo); 
-    this.dadosAtividade.tipoAtividadeId = novoTipo.id; 
-  } 
+    this.tiposAtividade.push(novoTipo);
+    this.dadosAtividade.tipoAtividadeId = novoTipo.id;
+  }
 }

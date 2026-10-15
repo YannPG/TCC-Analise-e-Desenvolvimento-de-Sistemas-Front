@@ -1,6 +1,6 @@
 <div class="dialog-overlay">
   <div class="dialog-card">
-    
+
     <header class="dialog-header">
       <h2>{{ isEdicao ? 'Editar Equipamento' : 'Cadastrar Equipamento' }}</h2>
       <button class="btn-close" (click)="cancelar()">
@@ -13,7 +13,6 @@
         <i class="ph ph-warning-circle"></i> {{ erroValidacao }}
       </div>
 
-      <!-- Agrupamento: Identificação -->
       <div class="form-group">
         <label>Nome do Equipamento *</label>
         <input type="text" [(ngModel)]="dadosEquipamento.nome" placeholder="Ex: Trator Principal">
@@ -43,7 +42,6 @@
         </div>
       </div>
 
-      <!-- Agrupamento: Detalhes Técnicos -->
       <div class="form-row">
         <div class="form-group">
           <label>Marca / Modelo</label>
@@ -55,7 +53,6 @@
         </div>
       </div>
 
-      <!-- Agrupamento: Aquisição e Status -->
       <div class="form-row">
         <div class="form-group">
           <label>Data de Aquisição *</label>

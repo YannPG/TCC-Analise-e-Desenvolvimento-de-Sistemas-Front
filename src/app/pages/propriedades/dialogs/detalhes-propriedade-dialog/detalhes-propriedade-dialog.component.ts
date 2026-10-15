@@ -9,12 +9,12 @@ import { DocumentoUtils } from 'src/app/core/utils/documento.util';
 })
 export class DetalhesPropriedadeDialogComponent implements OnInit {
 
-  @Input() propriedade!: Propriedade; 
+  @Input() propriedade!: Propriedade;
   @Output() fechar = new EventEmitter<void>();
   @Output() salvar = new EventEmitter<any>();
 
   dadosEdicao: any = {};
-  erroValidacao: string | null = null; 
+  erroValidacao: string | null = null;
 
   ngOnInit(): void {
     this.dadosEdicao = { ...this.propriedade };
@@ -22,12 +22,12 @@ export class DetalhesPropriedadeDialogComponent implements OnInit {
     if (this.dadosEdicao.cep) {
       this.dadosEdicao.cep = DocumentoUtils.formatarCep(this.dadosEdicao.cep);
     }
-    
+
     if (this.dadosEdicao.cnpj) {
       this.dadosEdicao.cnpj = DocumentoUtils.formatarDocumento(this.dadosEdicao.cnpj);
     }
   }
-  
+
   cancelar(): void {
     this.fechar.emit();
   }
@@ -41,7 +41,7 @@ export class DetalhesPropriedadeDialogComponent implements OnInit {
   }
 
   confirmar(): void {
-    this.erroValidacao = null; // Limpa erros antigos
+    this.erroValidacao = null;
 
     if (!this.dadosEdicao.nome || !this.dadosEdicao.municipio || !this.dadosEdicao.uf) {
       this.erroValidacao = 'Preencha os campos obrigatórios (Nome, Município e UF)!';
@@ -60,7 +60,7 @@ export class DetalhesPropriedadeDialogComponent implements OnInit {
         return;
       }
     }
-    
+
     this.salvar.emit(this.dadosEdicao);
   }
 }
